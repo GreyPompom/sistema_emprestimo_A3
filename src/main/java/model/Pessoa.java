@@ -1,6 +1,6 @@
 package model;
 
-public class Pessoa {
+public class Pessoa { 
     
 // Atributos
     private int id;

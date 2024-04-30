@@ -77,8 +77,8 @@ A ESTRUTURA EM CAMADAS PARA USAR COM BANCOS DE DADOS. */
 
     private int procuraIndice(int id) {
         int indice = -1;
-        for (int i = 0; i < getMinhaLista().size(); i++) {
-            if (getMinhaLista().get(i).getId(i) == id) {
+        for (int i = 0; i < AlunoDAO.minhaLista.size(); i++) {
+            if (AlunoDAO.minhaLista.get(i).getId() == id) {
                 indice = i;
             }
         }
@@ -88,7 +88,7 @@ A ESTRUTURA EM CAMADAS PARA USAR COM BANCOS DE DADOS. */
 
     public Aluno carregaAluno(int id) {
         int indice = this.procuraIndice(id);
-        return getMinhaLista().get(indice);
+        return AlunoDAO.getMinhaLista().get(indice);
     }
 // retorna o maior ID da nossa base de dados
 
