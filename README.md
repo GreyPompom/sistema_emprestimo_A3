@@ -2,6 +2,7 @@
 Projeto de sistema de emprestimo, em JAVA-MVC com interfaces.
 
 Tarefas:
+
 Class -Model/Pessoa -Model/Aluno : Rafael
 
 DAO -DAO/AlunoDAO : Emely
