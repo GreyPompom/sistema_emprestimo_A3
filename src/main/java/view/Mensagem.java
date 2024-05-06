@@ -1,5 +1,5 @@
 
-package View;
+package view;
 
 public class Mensagem extends Exception {
 
