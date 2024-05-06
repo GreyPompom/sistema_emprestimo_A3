@@ -1,19 +1,8 @@
 # sistema_emprestimo_A3
 Projeto de sistema de emprestimo, em JAVA-MVC com interfaces.
 
-Tarefas:
+Trello
 
-Class -Model/Pessoa -Model/Aluno : Rafael
+https://trello.com/invite/b/9HyXyz79/ATTI79889ba8eb5ded6d4e6ea8cbd08a13cd0AFD18C8/sistemaemprestimoa3
 
-DAO -DAO/AlunoDAO : Emely
-
-FRM -View/CadastroAluno : Bruno
-
-FRM -View/GerenciaAluno : Luan
-
-FRM -View/TelaPrincipal : Lucas
-
-FRM -View/Mensagens : Emely
-
-*Criar arquivos nas pastas corretas e com os nomes padrões acima
 
