@@ -1,7 +1,7 @@
 
 package DAO;
 
-import Model.Ferramenta;
+import model.Ferramenta;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
