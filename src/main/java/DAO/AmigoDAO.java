@@ -1,7 +1,7 @@
 
 package DAO;
 
-import Model.Amigo;
+import model.Amigo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
