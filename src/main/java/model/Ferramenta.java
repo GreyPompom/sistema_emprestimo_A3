@@ -14,8 +14,11 @@ public class Ferramenta {
     private final FerramentaDAO dao;
     
     
+    
+    
     public Ferramenta() {
      this.dao = new FerramentaDAO(); 
+     
     
     }
 
@@ -27,6 +30,7 @@ public class Ferramenta {
         this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
         this.status = false;
     }
+     
     public Ferramenta(int id, String nome, String marca, double custo, boolean status) {
         this.id = id;
         this.nome = nome;
@@ -34,6 +38,8 @@ public class Ferramenta {
         this.custo = custo;
         this.status = status;
          this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
+         
+         
     }
 
     public int getId() {
@@ -45,6 +51,7 @@ public class Ferramenta {
     }
 
     public String getNome() {
+        
         return nome;
     }
 
@@ -75,6 +82,7 @@ public class Ferramenta {
     public void setStatus(boolean status) {
         this.status = status;
     }
+    
      
     //METODOS CONTROLLERS//
     // retorna o maior ID da nossa base de dados
@@ -84,8 +92,19 @@ public class Ferramenta {
         
      public ArrayList pegarLista() {
         //retorna a lista de ferramentas cadastradas no banco
+        
          
         return dao.getMinhaLista();
         
     }
+     public boolean InsertFerramenta(String nome, String Marca, double Custo) throws SQLException {
+          System.out.println(Custo);
+        int idM = this.maiorID() + 1;
+        Ferramenta objeto = new Ferramenta(idM, nome, Marca,Custo);
+//        AlunoDAO.MinhaLista.add(objeto);
+        dao.InserirFerramentaBD(objeto);
+        return true;
+
+    }
+     
 }
