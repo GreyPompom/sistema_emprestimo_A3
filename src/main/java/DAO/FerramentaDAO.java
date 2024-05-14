@@ -24,13 +24,15 @@ public class FerramentaDAO {
         int maior = 0;
         try {
             try (Statement stmt = this.getConexao().createStatement()) {
-                ResultSet res = stmt.executeQuery("SELECT MAX(id_ferramenta) id_ferramenta FROM tb_ferramentas");
+                ResultSet res = stmt.executeQuery("SELECT MAX(id_ferramenta) id_ferramenta FROM ferramentas");
                 res.next();
                 maior = res.getInt("id_ferramenta");
             }
         } catch (SQLException ex) {
         }
+        System.out.println("maior: "+ maior);
         return maior;
+        
     }
 
     public Connection getConexao() {
@@ -44,7 +46,7 @@ public class FerramentaDAO {
             String database = "db_emprestimos";
             String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
             String user = "root";
-            String password = "Senha";
+            String password = "Morango358017#";
             connection = DriverManager.getConnection(url, user, password);
             // Testando..
             if (connection != null) {
@@ -94,7 +96,7 @@ public class FerramentaDAO {
 
     //esse carinha aqui inseri uma nova ferramenta no banco
     public boolean InserirFerramentaBD(Ferramenta objeto) {
-        String sql = "INSERT INTO ferramentas(id_ferramenta,nome,marca,custo_aquisicao, status) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO ferramentas(id_ferramenta,nome,marca,custo_aquisicao, status) VALUES(?,?,?,?,?)";
         try {
             System.out.println(objeto.getCusto());
             try (PreparedStatement stmt = this.getConexao().prepareStatement(sql)) {
@@ -102,7 +104,7 @@ public class FerramentaDAO {
                 stmt.setString(2, objeto.getNome());
                 stmt.setString(3, objeto.getMarca());
                 stmt.setDouble(4, objeto.getCusto());
-                stmt.setBoolean(0, false);
+                stmt.setBoolean(5, false);
                 stmt.execute();
             }
             return true;

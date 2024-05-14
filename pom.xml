@@ -11,4 +11,11 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.mycompany.sistema_emprestimo_a3.Sistema_emprestimo_A3</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.27</version> <!-- Ou qualquer versão desejada -->
+        </dependency>
+    </dependencies>
 </project>
