@@ -99,12 +99,18 @@ public class Ferramenta {
     }
      public boolean InsertFerramenta(String nome, String Marca, double Custo) throws SQLException {
           System.out.println(Custo);
+          System.out.println("CAHAMOU");
         int idM = this.maiorID() + 1;
+        System.out.println(idM);
         Ferramenta objeto = new Ferramenta(idM, nome, Marca,Custo);
 //        AlunoDAO.MinhaLista.add(objeto);
         dao.InserirFerramentaBD(objeto);
         return true;
 
+    }
+
+    public void setVisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
      
 }

@@ -209,7 +209,7 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
             }
             
         } catch (Exception ex) {
-            System.out.println("deu erro");
+            System.out.println(ex);
             JOptionPane.showMessageDialog(null, ex);
         }
     }//GEN-LAST:event_CadastrarActionPerformed
