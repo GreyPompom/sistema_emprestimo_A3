@@ -125,23 +125,31 @@ public class FerramentaDAO {
     }
 
     //atualiza ferramenta, passar obejto com as infos atualizadas.
-    public boolean AtualizarFerramenta(Ferramenta objeto) {
-        String sintaxe = "UPDATE ferramentas set nome = ? ,marca =? , custo_aquisicao  WHERE id = ?";
+     public boolean AtualizarFerramenta(Ferramenta objeto) {
+         System.out.println("entrou aqui update");
+    String sintaxe = "UPDATE ferramentas SET nome = ?, marca = ?, custo_aquisicao = ?, status = ? WHERE id_ferramenta = ?";
 
         try (PreparedStatement stmt = this.getConexao().prepareStatement(sintaxe)) {
-            stmt.setInt(1, objeto.getId());
-            stmt.setString(2, objeto.getNome());
-            stmt.setString(3, objeto.getMarca());
-            stmt.setDouble(4, objeto.getCusto());
-            return true;
-
+            stmt.setString(1, objeto.getNome());
+            stmt.setString(2, objeto.getMarca());
+            stmt.setDouble(3, objeto.getCusto());
+            stmt.setBoolean(4, objeto.isStatus());
+            stmt.setInt(5, objeto.getId());
+            
+            int linhasAfetadas = stmt.executeUpdate();
+            
+            if(linhasAfetadas > 0){
+                return true;
+            }else{
+                return false;
+            }
         } catch (SQLException erro) {
             throw new RuntimeException(erro);
         }
 
     }
 
-    public Ferramenta carregaAluno(int id) {
+    public Ferramenta carregaFerramenta(int id) {
         Ferramenta objeto = new Ferramenta(); //cria o objeto
         objeto.setId(id); //seta o id recebido por parametro para o objeto
         
