@@ -92,8 +92,6 @@ public class Ferramenta {
         
      public ArrayList pegarLista() {
         //retorna a lista de ferramentas cadastradas no banco
-        
-         
         return dao.getMinhaLista();
         
     }
@@ -109,8 +107,13 @@ public class Ferramenta {
 
     }
 
-    public void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean UpdateFerramentaBD(String nome, int id, String marca, boolean status, double custo) {
+        Ferramenta objeto = new Ferramenta( id,nome,  marca,  custo,  status);
+        dao.AtualizarFerramenta(objeto);
+        return true;
     }
-     
+    
+    public void setVisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 }
