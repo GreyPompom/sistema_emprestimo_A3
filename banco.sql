@@ -38,7 +38,7 @@ CREATE TABLE emprestimo (
     data_devolucao DATE,
     FOREIGN KEY (id_ferramenta) REFERENCES ferramentas(id)
 ,
-    FOREIGN KEY (id_amigo) REFERENCES amigo(id)
+    FOREIGN KEY (id_amigo) REFERENCES amigos(id)
 
 );
 
