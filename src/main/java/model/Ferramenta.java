@@ -1,7 +1,7 @@
 
 package model;
 
-import DAO.FerramentaDAO;
+import dao.FerramentaDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
