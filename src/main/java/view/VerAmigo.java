@@ -4,17 +4,27 @@
  */
 package view;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import model.Amigo;
+
 /**
  *
  * @author lucas
  */
 public class VerAmigo extends javax.swing.JFrame {
+    private Amigo objetoAmigo;
+    
 
     /**
      * Creates new form telaExibicaoAmigos
      */
     public VerAmigo() {
         initComponents();
+        this.objetoAmigo = new Amigo();
+        this.carregaTabela();
+        
+        
     }
 
     /**
@@ -37,7 +47,7 @@ public class VerAmigo extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TabelaAmigos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         inputId = new javax.swing.JTextPane();
@@ -117,19 +127,16 @@ public class VerAmigo extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaAmigos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "id", "Nome", "Telefone"
             }
         ));
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
+        TabelaAmigos.setShowGrid(true);
+        jScrollPane2.setViewportView(TabelaAmigos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -327,9 +334,28 @@ public class VerAmigo extends javax.swing.JFrame {
         });
     }
 
+    
+   @SuppressWarnings("unchecked")
+    public void carregaTabela() {
+
+        DefaultTableModel modelo = (DefaultTableModel) this.TabelaAmigos.getModel();
+        modelo.setNumRows(0);
+
+        ArrayList<Amigo> minhalista = new ArrayList<>();
+        minhalista = objetoAmigo.pegarLista();
+
+        for (Amigo a : minhalista) {
+            modelo.addRow(new Object[]{
+                a.getId(),
+                a.getNome(),
+               a.getTelefone()
+            });
+        }
+    } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Deletar;
     private javax.swing.JButton Fechar;
+    private javax.swing.JTable TabelaAmigos;
     private javax.swing.JTextPane inputId;
     private javax.swing.JTextPane inputNome;
     private javax.swing.JTextPane inputTelefone;
@@ -351,7 +377,6 @@ public class VerAmigo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
