@@ -10,38 +10,33 @@ drop table if exists ferramentas;
 
 drop table if exists amigos;
 
-drop table if exists emprestimo;
+drop table if exists emprestimos;
 
 
 #cria a tabela de Ferramenta 
-CREATE TABLE ferramentas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    custo DOUBLE NOT NULL,
-    marca VARCHAR(100) NOT NULL,
-    status BOOLEAN NOT NULL DEFAULT TRUE
+
+CREATE DATABASE IF NOT EXISTS db_emprestimos;
+USE db_emprestimos;
+CREATE TABLE IF NOT EXISTS ferramentas (
+    id_ferramenta INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    marca VARCHAR(255),
+    custo_aquisicao DECIMAL(10, 2),
+    status BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-#cria a tabela de Amigo 
-CREATE TABLE amigos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    telefone VARCHAR(20) NOT NULL
+CREATE TABLE IF NOT EXISTS amigos (
+    id_amigo INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    telefone VARCHAR(20)
 );
 
--- Criação da tabela Emprestimo
-CREATE TABLE emprestimo (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_ferramenta INT NOT NULL,
-    id_amigo INT NOT NULL,
-    data_emprestimo DATE NOT NULL,
+CREATE TABLE IF NOT EXISTS emprestimos (
+    id_emprestimo INT AUTO_INCREMENT PRIMARY KEY,
+    id_ferramenta INT,
+    id_amigo INT,
+    data_emprestimo DATE,
     data_devolucao DATE,
-    FOREIGN KEY (id_ferramenta) REFERENCES ferramentas(id)
-,
-    FOREIGN KEY (id_amigo) REFERENCES amigos(id)
-
+    FOREIGN KEY (id_ferramenta) REFERENCES ferramentas(id_ferramenta),
+    FOREIGN KEY (id_amigo) REFERENCES amigos(id_amigo)
 );
-
-
-#lista a tabela criada
-show tables;
