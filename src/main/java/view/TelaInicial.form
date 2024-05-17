@@ -107,7 +107,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jButton4" min="-2" pref="160" max="-2" attributes="0"/>
                                   <Component id="jButton2" min="-2" pref="160" max="-2" attributes="0"/>
-                                  <Component id="jButton5" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <Component id="cadastrarAmigo" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -135,7 +135,7 @@
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButton6" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="jButton5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="cadastrarAmigo" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="47" max="32767" attributes="0"/>
                   </Group>
@@ -169,10 +169,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="cadastrarAmigo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar Amigo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarAmigoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton6">
               <Properties>
