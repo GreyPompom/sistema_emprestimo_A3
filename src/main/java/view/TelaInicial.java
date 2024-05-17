@@ -70,6 +70,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         jButton6.setText("Amigo");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Bem Vindo!");
 
@@ -172,6 +177,12 @@ public class TelaInicial extends javax.swing.JFrame {
         CadastrarAmigo objeto = new CadastrarAmigo();
         objeto.setVisible(true);
     }//GEN-LAST:event_cadastrarAmigoActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        VerAmigo objeto = new VerAmigo();
+        objeto.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
