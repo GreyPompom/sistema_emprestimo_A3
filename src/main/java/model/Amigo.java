@@ -1,5 +1,5 @@
 package model;
-import DAO.AmigoDAO;
+import dao.AmigoDAO;
 import java.util.ArrayList;
 import java.sql.SQLException;
 
