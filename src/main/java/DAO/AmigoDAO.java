@@ -43,13 +43,13 @@ public class AmigoDAO {
             String database = "db_emprestimos";
             String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
             String user = "root";
-            String password = "SENHA";
+            String password = "Morango358017#";
             connection = DriverManager.getConnection(url, user, password);
             // Testando..
             if (connection != null) {
                 System.out.println("Status: Conectado!");
             } else {
-                System.out.println("Status: N�O CONECTADO!");
+                System.out.println("Status: NÃO CONECTADO!");
             }
 
             return connection;

@@ -33,7 +33,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        cadastrarAmigo = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -62,7 +62,12 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Cadastrar Amigo");
+        cadastrarAmigo.setText("Cadastrar Amigo");
+        cadastrarAmigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarAmigoActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Amigo");
 
@@ -94,7 +99,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cadastrarAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -115,7 +120,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cadastrarAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -160,14 +165,20 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       CadastrarFerramenta objeto = new CadastrarFerramenta();
-       objeto.setVisible(true);
+        CadastrarFerramenta objeto = new CadastrarFerramenta();
+        objeto.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         VerFerramenta objeto = new VerFerramenta();
-       objeto.setVisible(true);
+        VerFerramenta objeto = new VerFerramenta();
+        objeto.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void cadastrarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarAmigoActionPerformed
+        // TODO add your handling code here:
+        CadastrarAmigo objeto = new CadastrarAmigo();
+        objeto.setVisible(true);
+    }//GEN-LAST:event_cadastrarAmigoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,11 +216,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cadastrarAmigo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
