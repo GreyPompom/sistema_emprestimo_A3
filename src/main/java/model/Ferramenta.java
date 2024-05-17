@@ -12,11 +12,9 @@ public class Ferramenta {
     private double custo;
     private boolean status;
     private final FerramentaDAO dao;
-    
-    
-    
-    
-    public Ferramenta() {
+      
+           
+     public Ferramenta() {
      this.dao = new FerramentaDAO(); 
      
     
@@ -27,8 +25,8 @@ public class Ferramenta {
         this.nome = nome;
         this.marca = Marca;
         this.custo = Custo;
-        this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
         this.status = false;
+        this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
     }
      
     public Ferramenta(int id, String nome, String marca, double custo, boolean status) {
@@ -37,9 +35,7 @@ public class Ferramenta {
         this.marca = marca;
         this.custo = custo;
         this.status = status;
-         this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
-         
-         
+        this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco                
     }
 
     public int getId() {
@@ -50,8 +46,7 @@ public class Ferramenta {
         this.id = id;
     }
 
-    public String getNome() {
-        
+    public String getNome() {        
         return nome;
     }
 
@@ -81,8 +76,7 @@ public class Ferramenta {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-    
+    }   
      
     //METODOS CONTROLLERS//
     // retorna o maior ID da nossa base de dados
@@ -92,8 +86,7 @@ public class Ferramenta {
         
      public ArrayList pegarLista() {
         //retorna a lista de ferramentas cadastradas no banco
-        return dao.getMinhaLista();
-        
+        return dao.getMinhaLista();        
     }
      public boolean InsertFerramenta(String nome, String Marca, double Custo) throws SQLException {
           System.out.println(Custo);
@@ -104,7 +97,6 @@ public class Ferramenta {
 //        AlunoDAO.MinhaLista.add(objeto);
         dao.InserirFerramentaBD(objeto);
         return true;
-
     }
 
     public boolean UpdateFerramentaBD(String nome, int id, String marca, boolean status, double custo) {
@@ -115,5 +107,9 @@ public class Ferramenta {
     
     public void setVisible(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); 
+    }
+    public boolean DeleteFerramentaBD(int id) {
+        dao.DeletaFerramentaBD(id);
+        return true;
     }
 }

@@ -239,39 +239,38 @@ public class VerFerramenta extends javax.swing.JFrame {
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
       try {
-            // recebendo e validando dados da interface gr�fica.
+            // recebendo e validando dados da interface gráfica.
             int id = 0;
             String nome = "";
             String marca="";
             double preco =0.0;
-            boolean status =false;
-            
+            boolean status = false;            
 
-            if (this.inputNome.getText().length() < 2) {
+            if (this.inputNome.getText().length() <= 2) {
                 throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
             } else {
                 nome = this.inputNome.getText();
             }
-
+            
             if (this.inputMarca.getText().length() <= 2) {
                 throw new Mensagem("Marca deve conter ao menos 2 caracteres.");
             } else {
                 marca = this.inputMarca.getText();
             }
 
-            if (this.inputPreco.getText().length() < 2) {
-                throw new Mensagem("Curso deve conter ao menos 2 caracteres.");
+            if (this.inputPreco.getText().length() <= 2) {
+                throw new Mensagem("Preço deve conter ao menos 2 caracteres.");
             } else {
                 preco = Double.parseDouble(this.inputPreco.getText());
             }
 
             if (this.tabelaFerramentas.getSelectedRow() == -1) {
-                throw new Mensagem("Primeiro Selecione um Aluno para Alterar");
+                throw new Mensagem("Primeiro Selecione uma Ferramenta para Alterar");
             } else {
                 id = Integer.parseInt(this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 0).toString());
             }
             
-            if(this.inputStatus.getText().equals("Disponivel")){
+            if(this.inputStatus.getText().equals("Disponível")){
                 status = false;
             }else{
                 status= true;
@@ -291,16 +290,57 @@ public class VerFerramenta extends javax.swing.JFrame {
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } catch (NumberFormatException erro2) {
-            JOptionPane.showMessageDialog(null, "Informe um n�mero.");
+            JOptionPane.showMessageDialog(null, "Informe um número.");
         } finally {
             carregaTabela(); // atualiza a tabela.
         }
     }//GEN-LAST:event_atualizarActionPerformed
 
     private void deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarActionPerformed
-       
-    }//GEN-LAST:event_deletarActionPerformed
+        try {
+            // validando dados da interface gráfica.
+            int id = 0;
+            if (this.tabelaFerramentas.getSelectedRow() == -1) {
+                throw new Mensagem("Primeiro Selecione uma Ferramenta para APAGAR");
+            } else {
+                id = Integer.parseInt(this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 0).toString());
+            }
+            
+            // Define os textos dos botões
+            Object[] options = {"Sim", "Não"};
+            int resposta_usuario = JOptionPane.showOptionDialog(
+                    null, 
+                "Tem certeza que deseja APAGAR essa ferramenta ?", 
+                "Confirmação", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                options, 
+                options[0] );          
+            
+            if (resposta_usuario == 0) {// clicou em SIM
 
+                // envia os dados para o Aluno processar
+                if (this.objetoFerramenta.DeleteFerramentaBD(id)) {
+
+                    // limpa os campos
+                    this.inputNome.setText("");
+                    this.inputMarca.setText("");
+                    this.inputPreco.setText("");
+                    this.inputStatus.setText("");
+                    this.inputID.setText("");
+                    JOptionPane.showMessageDialog(rootPane, "Ferramenta apagada!");
+                }
+            }
+            System.out.println(this.objetoFerramenta.pegarLista().toString());
+
+        } catch (Mensagem erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        } finally {
+            // atualiza a tabela.
+            carregaTabela();
+        }
+    }//GEN-LAST:event_deletarActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -337,12 +377,9 @@ public class VerFerramenta extends javax.swing.JFrame {
     }
     @SuppressWarnings("unchecked")
     public void carregaTabela() {
-
     DefaultTableModel modelo = (DefaultTableModel) this.tabelaFerramentas.getModel();
     modelo.setNumRows(0);
-
     ArrayList<Ferramenta> minhalista = objetoFerramenta.pegarLista();
-
     for (Ferramenta a : minhalista) {
          System.out.println("a: "+a.getId());
         String x="";
@@ -358,8 +395,7 @@ public class VerFerramenta extends javax.swing.JFrame {
             a.getMarca(),
             x
         });
-    }
-      
+    }    
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
