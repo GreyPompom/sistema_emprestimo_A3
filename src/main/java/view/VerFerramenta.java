@@ -345,7 +345,7 @@ public class VerFerramenta extends javax.swing.JFrame {
 
     for (Ferramenta a : minhalista) {
          System.out.println("a: "+a.getId());
-        var x="";
+        String x="";
         if (a.isStatus() == false) {
             x = "Disponível";
         } else {
