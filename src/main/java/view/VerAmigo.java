@@ -47,7 +47,7 @@ public class VerAmigo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         inputTelefone = new javax.swing.JTextPane();
-        Deletar = new javax.swing.JButton();
+        deletarAmigo = new javax.swing.JButton();
         atualizarAmigo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         Fechar = new javax.swing.JButton();
@@ -159,11 +159,11 @@ public class VerAmigo extends javax.swing.JFrame {
 
         jScrollPane5.setViewportView(inputTelefone);
 
-        Deletar.setBackground(new java.awt.Color(255, 51, 51));
-        Deletar.setText("Deletar");
-        Deletar.addActionListener(new java.awt.event.ActionListener() {
+        deletarAmigo.setBackground(new java.awt.Color(255, 51, 51));
+        deletarAmigo.setText("Deletar");
+        deletarAmigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeletarActionPerformed(evt);
+                deletarAmigoActionPerformed(evt);
             }
         });
 
@@ -187,7 +187,7 @@ public class VerAmigo extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Deletar)
+                        .addComponent(deletarAmigo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(atualizarAmigo))
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -233,7 +233,7 @@ public class VerAmigo extends javax.swing.JFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Deletar)
+                    .addComponent(deletarAmigo)
                     .addComponent(atualizarAmigo))
                 .addContainerGap())
         );
@@ -286,9 +286,43 @@ public class VerAmigo extends javax.swing.JFrame {
         
 
      
-    private void DeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarActionPerformed
-
-    }//GEN-LAST:event_DeletarActionPerformed
+    private void deletarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarAmigoActionPerformed
+        try {
+        // validando dados da interface gráfica.
+        int id = 0;
+        if (this.TabelaAmigos.getSelectedRow() == -1) {
+            throw new Exception("Primeiro Selecione um amigo para APAGAR");
+        } else {
+            id = Integer.parseInt(this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 0).toString());
+        }
+        Object[] options = {"Sim", "Não"};
+        int resposta_usuario = JOptionPane.showOptionDialog(
+                null, 
+                "Tem certeza que deseja APAGAR esse amigo ?", 
+                "Confirmação", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                options, 
+                options[0] );  
+        if (resposta_usuario == 0) {// clicou em SIM
+            // envia os dados para o Amigo processar
+            if (this.objetoAmigo.DeleteAmigoBD(id)) {
+                // limpa os campos
+                this.inputNome.setText("");
+                this.inputTelefone.setText("");
+                this.inputId.setText("");
+                JOptionPane.showMessageDialog(rootPane, "Amigo Deletado!");
+            }
+        }
+        System.out.println(this.objetoAmigo.pegarLista().toString());
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(null, erro.getMessage());
+    } finally {
+        // atualiza a tabela.
+        carregaTabela();
+    }
+    }//GEN-LAST:event_deletarAmigoActionPerformed
 
     private void atualizarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarAmigoActionPerformed
 
@@ -416,10 +450,10 @@ public class VerAmigo extends javax.swing.JFrame {
         }
     } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Deletar;
     private javax.swing.JButton Fechar;
     private javax.swing.JTable TabelaAmigos;
     private javax.swing.JButton atualizarAmigo;
+    private javax.swing.JButton deletarAmigo;
     private javax.swing.JTextPane inputId;
     private javax.swing.JTextPane inputNome;
     private javax.swing.JTextPane inputTelefone;

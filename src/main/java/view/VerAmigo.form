@@ -171,7 +171,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="Deletar" min="-2" max="-2" attributes="0"/>
+                              <Component id="deletarAmigo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="atualizarAmigo" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -231,7 +231,7 @@
                       </Group>
                       <EmptySpace pref="18" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Deletar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="deletarAmigo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="atualizarAmigo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -359,7 +359,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="Deletar">
+            <Component class="javax.swing.JButton" name="deletarAmigo">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="ff" type="rgb"/>
@@ -367,7 +367,7 @@
                 <Property name="text" type="java.lang.String" value="Deletar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeletarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletarAmigoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="atualizarAmigo">
