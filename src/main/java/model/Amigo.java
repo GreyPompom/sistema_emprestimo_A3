@@ -64,6 +64,15 @@ public class Amigo {
         dao.InserirAmigoBD(objeto);
         return true;
     }
+    public boolean UpdateAmigoBD(String nome, int id, String telefone) {
+    Amigo objeto = new Amigo( id,nome, telefone);
+    dao.AtualizarAmigo(objeto);
+    return true;
+    }
     
+    public boolean DeleteAmigoBD(int id) {
+    dao.DeletaAmigoBD(id);
+    return true;
+    }
        
 }
