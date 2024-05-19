@@ -96,14 +96,14 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="inputMarca" min="-2" pref="110" max="-2" attributes="0"/>
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="inputPreco" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="inputPreco" max="32767" attributes="0"/>
-                                  <Component id="deletar" alignment="0" pref="110" max="32767" attributes="0"/>
+                                  <Component id="deletar" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="inputMarca" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -141,9 +141,9 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="inputID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="inputNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputMarca" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="inputPreco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="inputStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="inputMarca" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -260,12 +260,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Marca"/>
+                <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
+                <Property name="text" type="java.lang.String" value="Marca"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
