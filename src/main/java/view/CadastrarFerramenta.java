@@ -28,7 +28,7 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
         InputMarca = new javax.swing.JTextField();
         Cancelar = new javax.swing.JToggleButton();
         Cadastrar = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
+        Fechar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +64,11 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
         Cancelar.setBackground(new java.awt.Color(255, 51, 51));
         Cancelar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
 
         Cadastrar.setBackground(new java.awt.Color(102, 255, 102));
         Cadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -123,10 +128,10 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        jToggleButton3.setText("X");
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+        Fechar.setText("X");
+        Fechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
+                FecharActionPerformed(evt);
             }
         });
 
@@ -137,7 +142,7 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jToggleButton3)
+                    .addComponent(Fechar)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -145,7 +150,7 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(jToggleButton3)
+                .addComponent(Fechar)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -218,9 +223,13 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_InputPrecoActionPerformed
 
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
+    private void FecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FecharActionPerformed
+        (this).setVisible(false);
+    }//GEN-LAST:event_FecharActionPerformed
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        (this).setVisible(false);
+    }//GEN-LAST:event_CancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,6 +269,7 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton Cadastrar;
     private javax.swing.JToggleButton Cancelar;
+    private javax.swing.JToggleButton Fechar;
     private javax.swing.JTextField InputMarca;
     private javax.swing.JTextField InputNome;
     private javax.swing.JTextField InputPreco;
@@ -270,6 +280,5 @@ public class CadastrarFerramenta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JToggleButton jToggleButton3;
     // End of variables declaration//GEN-END:variables
 }
