@@ -59,7 +59,7 @@ public class AmigoDAO {
         return MinhaLista;
     }
 
-    public boolean InserirAmigoBD(Amigo objeto) {
+    public boolean inserirAmigoBD(Amigo objeto) {
         String sql = "INSERT INTO amigos(nome, telefone) VALUES(?, ?)";
         try {
             Connection conexao = ConexaoDB.getConexao();
@@ -77,7 +77,7 @@ public class AmigoDAO {
         return false;
     }
 
-    public boolean DeletaAmigoBD(int id) {
+    public boolean deletaAmigoBD(int id) {
         try {
             Connection conexao = ConexaoDB.getConexao();
             if (conexao != null) {
@@ -91,7 +91,7 @@ public class AmigoDAO {
         return true;
     }
 
-    public boolean AtualizarAmigo(Amigo objeto) {
+    public boolean atualizarAmigo(Amigo objeto) {
         String sintaxe = "UPDATE amigos SET nome = ?, telefone = ? WHERE id_amigo = ?";
         try {
             Connection conexao = ConexaoDB.getConexao();
