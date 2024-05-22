@@ -68,7 +68,7 @@ public class FerramentaDAO {
     }
 
     //esse carinha aqui insere uma nova ferramenta no banco
-    public boolean InserirFerramentaBD(Ferramenta objeto) {
+    public boolean inserirFerramentaBD(Ferramenta objeto) {
         String sql = "INSERT INTO ferramentas(id_ferramenta,nome,marca,custo_aquisicao, status) VALUES(?,?,?,?,?)";
         try {
             System.out.println(objeto.getCusto());
@@ -90,7 +90,7 @@ public class FerramentaDAO {
     }
 
     //como o nome já diz ele serve para deleta, precisa passar apena os id.
-    public boolean DeletaFerramentaBD(int id) {
+    public boolean deletaFerramentaBD(int id) {
         try {
             Connection conexao = ConexaoDB.getConexao();
             if (conexao != null) {
@@ -105,7 +105,7 @@ public class FerramentaDAO {
     }
 
     //atualiza ferramenta, passar obejto com as infos atualizadas.
-    public boolean AtualizarFerramenta(Ferramenta objeto) {
+    public boolean atualizarFerramenta(Ferramenta objeto) {
         String sql = "UPDATE ferramentas SET nome = ?, marca = ?, custo_aquisicao = ?, status = ? WHERE id_ferramenta = ?";
         try {
             // Obtendo a conexão do banco de dados
