@@ -33,10 +33,18 @@ CREATE TABLE IF NOT EXISTS amigos (
 
 CREATE TABLE IF NOT EXISTS emprestimos (
     id_emprestimo INT AUTO_INCREMENT PRIMARY KEY,
-    id_ferramenta INT,
     id_amigo INT,
     data_emprestimo DATE,
     data_devolucao DATE,
     FOREIGN KEY (id_ferramenta) REFERENCES ferramentas(id_ferramenta),
     FOREIGN KEY (id_amigo) REFERENCES amigos(id_amigo)
+);
+
+
+CREATE TABLE ferramentas_emprestadas (
+    id_emprestimo INT NOT NULL,
+    id_ferramenta INT NOT NULL,
+    data_devolucao DATE DEFAULT NULL,
+    FOREIGN KEY (id_emprestimo) REFERENCES emprestimos(id_emprestimo),
+    FOREIGN KEY (id_ferramenta) REFERENCES ferramentas(id_ferramenta)
 );
