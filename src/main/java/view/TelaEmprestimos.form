@@ -50,7 +50,7 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="801" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -153,9 +153,7 @@
                       <Component id="jButton2" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton3" min="-2" pref="129" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="94" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -164,8 +162,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jButton4" pref="39" max="32767" attributes="0"/>
-                          <Component id="jButton3" max="32767" attributes="0"/>
+                          <Component id="jButton3" pref="39" max="32767" attributes="0"/>
                           <Component id="jButton2" max="32767" attributes="0"/>
                           <Component id="jToggleButton2" max="32767" attributes="0"/>
                           <Component id="jButton1" max="32767" attributes="0"/>
@@ -200,11 +197,6 @@
             <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Rel&#xe1;torios"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Imprimir"/>
               </Properties>
             </Component>
           </SubComponents>

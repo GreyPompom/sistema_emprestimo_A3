@@ -9,10 +9,8 @@ import model.Ferramenta;
 
 public class Emprestimo {
     private Integer idEmprestimo;
-    private Integer idFerramenta;
     private Integer idAmigo;
     private Date  dataInicial;
-    private Date  dataPrazo;
     private Date  dataDevolucao;
     private Amigo amigo;
     private Ferramenta ferramenta;
@@ -21,48 +19,38 @@ public class Emprestimo {
   
     public Emprestimo() {
         this.idEmprestimo = null;
-        this.idFerramenta = null;
         this.idAmigo = null;
         this.dataInicial = null;
-        this.dataPrazo = null;
         this.dataDevolucao = null;
         this.amigo = new Amigo();
         this.ferramenta = new Ferramenta();
     }
 
-    public Emprestimo(Integer idFerramenta, Integer idAmigo, Date dataInicial, Date dataPrazo) {
-        this.idFerramenta = idFerramenta;
+    public Emprestimo( Integer idAmigo, Date dataInicial) {
         this.idAmigo = idAmigo;
         this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
     }
 
-    public Emprestimo(Integer idFerramenta, Integer idAmigo, Date dataInicial, Date dataPrazo,
+    public Emprestimo( Integer idAmigo, Date dataInicial,
     Date dataDevolucao) {
-        this.idFerramenta = idFerramenta;
         this.idAmigo = idAmigo;
         this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
         this.dataDevolucao = dataDevolucao;
     }
 
-    public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, Date  dataInicial, Date  dataPrazo,
+    public Emprestimo(Integer id, Integer idAmigo, Date  dataInicial, 
     Date  dataDevolucao) {
         this.idEmprestimo = id;
-        this.idFerramenta = idFerramenta;
         this.idAmigo = idAmigo;
         this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
         this.dataDevolucao = dataDevolucao;
     }
 
-    public Emprestimo(Integer id, Integer idFerramenta, Integer idAmigo, Date  dataInicial, Date  dataPrazo,
+    public Emprestimo(Integer id, Integer idAmigo, Date  dataInicial, 
     Date  dataDevolucao, Amigo amigo, Ferramenta ferramenta) {
         this.idEmprestimo = id;
-        this.idFerramenta = idFerramenta;
         this.idAmigo = idAmigo;
         this.dataInicial = dataInicial;
-        this.dataPrazo = dataPrazo;
         this.dataDevolucao = dataDevolucao;
         this.amigo = amigo;
         this.ferramenta = ferramenta;
@@ -74,14 +62,6 @@ public class Emprestimo {
 
     public void setIdEmprestimo(int idEmprestimo) {
         this.idEmprestimo = idEmprestimo;
-    }
-
-    public int getIdFerramenta() {
-        return idFerramenta;
-    }
-
-    public void setIdFerramenta(int idFerramenta) {
-        this.idFerramenta = idFerramenta;
     }
 
     public int getIdAmigo() {
@@ -108,12 +88,5 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public Date getDataPrazo() {
-        return dataPrazo;
-    }
-
-    public void setDataPrazo(Date dataPrazo) {
-        this.dataPrazo = dataPrazo;
-    }
     
 }

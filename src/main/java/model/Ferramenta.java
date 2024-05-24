@@ -25,7 +25,7 @@ public class Ferramenta {
         this.nome = nome;
         this.marca = Marca;
         this.custo = Custo;
-        this.status = false;
+        this.status = true;
         this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
     }
      
@@ -111,5 +111,8 @@ public class Ferramenta {
     public boolean DeleteFerramentaBD(int id) {
         dao.DeletaFerramentaBD(id);
         return true;
+    }
+    public ArrayList pegarListaDisponiveis(){
+          return dao.pegarListaDisponiveis();
     }
 }

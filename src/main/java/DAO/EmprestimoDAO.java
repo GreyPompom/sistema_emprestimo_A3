@@ -21,15 +21,13 @@ public class EmprestimoDAO {
     }
 
     public boolean inserirEmprestimo(Emprestimo emprestimo) {
-        String sql = "INSERT INTO emprestimos (id_ferramenta, id_amigo, data_inicial, data_prazo, data_devolucao) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO emprestimos ( id_amigo, data_inicial, data_devolucao) VALUES ( ?, ?, ?)";
         try {
             Connection conexao = ConexaoDB.getConexao();
             if (conexao != null) {
                 try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                    stmt.setInt(1, emprestimo.getIdFerramenta());
                     stmt.setInt(2, emprestimo.getIdAmigo());
                     stmt.setDate(3, emprestimo.getDataEmprestimo());
-                    stmt.setDate(4, emprestimo.getDataPrazo());
                     stmt.setDate(5, emprestimo.getDataDevolucao());
                     stmt.execute();
                     return true;
@@ -42,15 +40,13 @@ public class EmprestimoDAO {
     }
 
     public boolean atualizarEmprestimo(Emprestimo emprestimo) {
-        String sql = "UPDATE emprestimos SET id_ferramenta = ?, id_amigo = ?, data_inicial = ?, data_prazo = ?, data_devolucao = ? WHERE id_emprestimo = ?";
+        String sql = "UPDATE emprestimos SET  id_amigo = ?, data_inicial = ?, data_devolucao = ? WHERE id_emprestimo = ?";
         try {
             Connection conexao = ConexaoDB.getConexao();
             if (conexao != null) {
                 try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                    stmt.setInt(1, emprestimo.getIdFerramenta());
                     stmt.setInt(2, emprestimo.getIdAmigo());
                     stmt.setDate(3, emprestimo.getDataEmprestimo());
-                    stmt.setDate(4, emprestimo.getDataPrazo());
                     stmt.setDate(5, emprestimo.getDataDevolucao());
                     stmt.setInt(6, emprestimo.getIdEmprestimo());
                     stmt.executeUpdate();
@@ -91,10 +87,8 @@ public class EmprestimoDAO {
                     while (rs.next()) {
                         Emprestimo emprestimo = new Emprestimo();
                         emprestimo.setIdEmprestimo(rs.getInt("id_emprestimo"));
-                        emprestimo.setIdFerramenta(rs.getInt("id_ferramenta"));
                         emprestimo.setIdAmigo(rs.getInt("id_amigo"));
                         emprestimo.setDataEmprestimo(rs.getDate("data_inicial"));
-                        emprestimo.setDataPrazo(rs.getDate("data_prazo"));
                         emprestimo.setDataDevolucao(rs.getDate("data_devolucao"));
                         lista.add(emprestimo);
                     }
