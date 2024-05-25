@@ -88,28 +88,28 @@ public class Ferramenta {
         //retorna a lista de ferramentas cadastradas no banco
         return dao.getMinhaLista();        
     }
-     public boolean InsertFerramenta(String nome, String Marca, double Custo) throws SQLException {
+     public boolean insertFerramenta(String nome, String Marca, double Custo) throws SQLException {
           System.out.println(Custo);
           System.out.println("CAHAMOU");
         int idM = this.maiorID() + 1;
         System.out.println(idM);
         Ferramenta objeto = new Ferramenta(idM, nome, Marca,Custo);
 //        AlunoDAO.MinhaLista.add(objeto);
-        dao.InserirFerramentaBD(objeto);
+        dao.inserirFerramentaBD(objeto);
         return true;
     }
 
-    public boolean UpdateFerramentaBD(String nome, int id, String marca, boolean status, double custo) {
+    public boolean updateFerramentaBD(String nome, int id, String marca, boolean status, double custo) {
         Ferramenta objeto = new Ferramenta( id,nome,  marca,  custo,  status);
-        dao.AtualizarFerramenta(objeto);
+        dao.atualizarFerramenta(objeto);
         return true;
     }
     
     public void setVisible(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
-    public boolean DeleteFerramentaBD(int id) {
-        dao.DeletaFerramentaBD(id);
+    public boolean deleteFerramentaBD(int id) {
+        dao.deletaFerramentaBD(id);
         return true;
     }
     public ArrayList pegarListaDisponiveis(){
