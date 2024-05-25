@@ -95,13 +95,13 @@ public class Ferramenta {
         System.out.println(idM);
         Ferramenta objeto = new Ferramenta(idM, nome, Marca,Custo);
 //        AlunoDAO.MinhaLista.add(objeto);
-        dao.InserirFerramentaBD(objeto);
+        dao.inserirFerramentaBD(objeto);
         return true;
     }
 
     public boolean updateFerramentaBD(String nome, int id, String marca, boolean status, double custo) {
         Ferramenta objeto = new Ferramenta( id,nome,  marca,  custo,  status);
-        dao.AtualizarFerramenta(objeto);
+        dao.atualizarFerramenta(objeto);
         return true;
     }
     
@@ -109,7 +109,7 @@ public class Ferramenta {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     public boolean deleteFerramentaBD(int id) {
-        dao.DeletaFerramentaBD(id);
+        dao.deletaFerramentaBD(id);
         return true;
     }
 }

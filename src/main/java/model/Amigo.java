@@ -61,17 +61,17 @@ public class Amigo {
     public boolean insertAmigo(String nome, String telefone)throws SQLException{
         int id = this.maiorID()+1;
         Amigo objeto = new Amigo(id, nome, telefone);
-        dao.InserirAmigoBD(objeto);
+        dao.inserirAmigoBD(objeto);
         return true;
     }
     public boolean updateAmigoBD(String nome, int id, String telefone) {
     Amigo objeto = new Amigo( id,nome, telefone);
-    dao.AtualizarAmigo(objeto);
+    dao.atualizarAmigo(objeto);
     return true;
     }
     
     public boolean deleteAmigoBD(int id) {
-    dao.DeletaAmigoBD(id);
+    dao.deletaAmigoBD(id);
     return true;
     }
        
