@@ -45,6 +45,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton1.setText("Empréstimos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Relatórios");
 
@@ -183,6 +188,11 @@ public class TelaInicial extends javax.swing.JFrame {
         VerAmigo objeto = new VerAmigo();
         objeto.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CadastrarEmprestimo objeto = new CadastrarEmprestimo();
+        objeto.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
