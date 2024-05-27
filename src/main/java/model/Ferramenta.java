@@ -16,8 +16,6 @@ public class Ferramenta {
            
      public Ferramenta() {
      this.dao = new FerramentaDAO(); 
-     
-    
     }
 
      public Ferramenta(int id, String nome, String Marca, double Custo) {
@@ -25,7 +23,7 @@ public class Ferramenta {
         this.nome = nome;
         this.marca = Marca;
         this.custo = Custo;
-        this.status = false;
+        this.status = true;
         this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
     }
      
@@ -89,12 +87,9 @@ public class Ferramenta {
         return dao.getMinhaLista();        
     }
      public boolean insertFerramenta(String nome, String Marca, double Custo) throws SQLException {
-          System.out.println(Custo);
-          System.out.println("CAHAMOU");
         int idM = this.maiorID() + 1;
         System.out.println(idM);
         Ferramenta objeto = new Ferramenta(idM, nome, Marca,Custo);
-//        AlunoDAO.MinhaLista.add(objeto);
         dao.inserirFerramentaBD(objeto);
         return true;
     }
@@ -111,5 +106,8 @@ public class Ferramenta {
     public boolean deleteFerramentaBD(int id) {
         dao.deletaFerramentaBD(id);
         return true;
+    }
+    public ArrayList pegarListaDisponiveis(){
+          return dao.pegarListaDisponiveis();
     }
 }
