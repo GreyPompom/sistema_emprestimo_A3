@@ -10,6 +10,9 @@ import model.Amigo;
 import model.Ferramenta;
 import model.Enumo.StatusEmprestimo;
 import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 
 public class Emprestimo {
@@ -151,11 +154,36 @@ public class Emprestimo {
         }
     }
     
-    public boolean inserirEmprestimo(int idAmigo, ArrayList<Ferramenta> ferramentasSelecionadas,Date dataDevolucao, Date dataInicial ){
+    /*Metodos*/
+    public ArrayList pegarLista(){
+        return dao.listarEmprestimos();
+    }
+    public boolean inserirEmprestimo(int idAmigo, ArrayList<Ferramenta> ferramentasSelecionadas, Date dataInicial,Date dataDevolucao ){
         
         Emprestimo objeto = new Emprestimo(idAmigo, dataInicial, dataDevolucao, ferramentasSelecionadas );
         dao.salvarEmprestimo(objeto);
         return true;
     }
+    public int qtdFerramentasEmprestimo(int id){
+        return dao.qtdFerremantas(id);
+    }
+    
+   public long tempoRestante(java.util.Date dataInicial, java.util.Date dataDevolucao) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    String dtInicialStr = sdf.format(dataInicial);
+    String dtDevolucaoStr = sdf.format(dataDevolucao);
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    LocalDate dataInicialLD = LocalDate.parse(dtInicialStr, formatter);
+    LocalDate dataDevolucaoLD = LocalDate.parse(dtDevolucaoStr, formatter);
+
+    // Se você quer calcular os dias restantes a partir de hoje até a data de devolução
+    long diasRestantes = ChronoUnit.DAYS.between(LocalDate.now(), dataDevolucaoLD);
+
+    return diasRestantes;
+    }
+   
 
 }

@@ -80,7 +80,7 @@ public class FerramentaDAO {
                     stmt.setString(2, objeto.getNome());
                     stmt.setString(3, objeto.getMarca());
                     stmt.setDouble(4, objeto.getCusto());
-                    stmt.setBoolean(5, false);
+                    stmt.setBoolean(5, true);
                     stmt.execute();
                 }
             }

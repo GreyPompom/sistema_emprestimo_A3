@@ -73,7 +73,7 @@ public class EmprestimoDAO {
             pstmtFerramentas = conexaozinha.prepareStatement(sqlAtualizaFerramenta);
 
             for (Ferramenta ferramenta : emprestimo.getFerramentasSelecionadas()) {
-                
+
                 pstmtFerramentas.setBoolean(1, false); // Supondo que 'false' significa que a ferramenta não está disponível
                 System.out.print(ferramenta.getId());
                 pstmtFerramentas.setInt(2, ferramenta.getId());
@@ -84,8 +84,7 @@ public class EmprestimoDAO {
             conexaozinha.commit();
             return true;
 
-        } 
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             if (conexaozinha != null) {
                 try {
@@ -96,8 +95,7 @@ public class EmprestimoDAO {
             }
             return false;
 
-        } 
-        finally {
+        } finally {
             // Fechar recursos
             try {
                 if (generatedKeys != null) {
@@ -169,7 +167,7 @@ public class EmprestimoDAO {
                         Emprestimo emprestimo = new Emprestimo();
                         emprestimo.setIdEmprestimo(rs.getInt("id_emprestimo"));
                         emprestimo.setIdAmigo(rs.getInt("id_amigo"));
-                        emprestimo.setDataInicial(rs.getDate("data_inicial"));
+                        emprestimo.setDataInicial(rs.getDate("data_emprestimo"));
                         emprestimo.setDataDevolucao(rs.getDate("data_devolucao"));
                         lista.add(emprestimo);
                     }
@@ -179,5 +177,27 @@ public class EmprestimoDAO {
             throw new RuntimeException(erro);
         }
         return lista;
+    }
+
+    public int qtdFerremantas(int id) {
+        int qtd = 0;
+        String sql = "Select count(*) from ferramentas_emprestadas where id_emprestimo = ? ";
+
+        try {
+            Connection conexao = ConexaoDB.getConexao();
+            if (conexao != null) {
+                try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                    stmt.setInt(1, id);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            qtd = rs.getInt(1);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException erro) {
+            throw new RuntimeException(erro);
+        }
+        return qtd;
     }
 }

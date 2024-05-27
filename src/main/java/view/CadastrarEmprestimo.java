@@ -477,9 +477,7 @@ public class CadastrarEmprestimo extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -627,6 +625,8 @@ public class CadastrarEmprestimo extends javax.swing.JFrame {
         this.inputNomeAmigo.setText("");
         this.inputTelAmigo.setText("");
         this.setVisible(false);
+        VerEmprestimo objeto = new VerEmprestimo();
+        objeto.carregaTabela();
     }
 
     public static void main(String args[]) {
