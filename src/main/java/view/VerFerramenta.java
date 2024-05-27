@@ -276,7 +276,7 @@ public class VerFerramenta extends javax.swing.JFrame {
                 status= true;
             }
             // envia os dados para o Aluno processar
-            if (this.objetoFerramenta.UpdateFerramentaBD(nome,id,marca,status,preco  )) {
+            if (this.objetoFerramenta.updateFerramentaBD(nome,id,marca,status,preco  )) {
                 // limpa os campos
                 this.inputNome.setText("");
                     this.inputMarca.setText("");
@@ -321,7 +321,7 @@ public class VerFerramenta extends javax.swing.JFrame {
             if (resposta_usuario == 0) {// clicou em SIM
 
                 // envia os dados para o Aluno processar
-                if (this.objetoFerramenta.DeleteFerramentaBD(id)) {
+                if (this.objetoFerramenta.deleteFerramentaBD(id)) {
 
                     // limpa os campos
                     this.inputNome.setText("");

@@ -307,7 +307,7 @@ public class VerAmigo extends javax.swing.JFrame {
                 options[0] );  
         if (resposta_usuario == 0) {// clicou em SIM
             // envia os dados para o Amigo processar
-            if (this.objetoAmigo.DeleteAmigoBD(id)) {
+            if (this.objetoAmigo.deleteAmigoBD(id)) {
                 // limpa os campos
                 this.inputNome.setText("");
                 this.inputTelefone.setText("");
@@ -354,7 +354,7 @@ public class VerAmigo extends javax.swing.JFrame {
            
             
             // envia os dados para o Aluno processar
-            if (this.objetoAmigo.UpdateAmigoBD(nome,id,telefone )) {
+            if (this.objetoAmigo.updateAmigoBD(nome,id,telefone )) {
                 // limpa os campos
                 this.inputNome.setText("");
                 this.inputTelefone.setText("");
