@@ -155,7 +155,7 @@ public class FerramentaDAO {
     }
     
     public ArrayList pegarListaDisponiveis() {
-        String sql = "SELECT id_ferramenta, nome, marca, custo_aquisicao FROM ferramentas WHERE status = false";
+        String sql = "SELECT id_ferramenta, nome, marca, custo_aquisicao FROM ferramentas WHERE status = true";
 
         try (Connection conexao = ConexaoDB.getConexao();
              PreparedStatement stmt = conexao.prepareStatement(sql);

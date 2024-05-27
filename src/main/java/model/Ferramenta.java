@@ -16,8 +16,6 @@ public class Ferramenta {
            
      public Ferramenta() {
      this.dao = new FerramentaDAO(); 
-     
-    
     }
 
      public Ferramenta(int id, String nome, String Marca, double Custo) {
@@ -89,12 +87,9 @@ public class Ferramenta {
         return dao.getMinhaLista();        
     }
      public boolean insertFerramenta(String nome, String Marca, double Custo) throws SQLException {
-          System.out.println(Custo);
-          System.out.println("CAHAMOU");
         int idM = this.maiorID() + 1;
         System.out.println(idM);
         Ferramenta objeto = new Ferramenta(idM, nome, Marca,Custo);
-//        AlunoDAO.MinhaLista.add(objeto);
         dao.inserirFerramentaBD(objeto);
         return true;
     }
