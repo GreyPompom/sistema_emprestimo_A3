@@ -74,5 +74,9 @@ public class Amigo {
     dao.deletaAmigoBD(id);
     return true;
     }
+    
+    public Amigo pegaAmigo(int id){
+        return dao.carregaAmigo(id);
+    }
        
 }

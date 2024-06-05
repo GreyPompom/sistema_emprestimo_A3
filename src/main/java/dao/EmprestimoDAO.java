@@ -120,15 +120,17 @@ public class EmprestimoDAO {
     }
 
     public boolean atualizarEmprestimo(Emprestimo emprestimo) {
-        String sql = "UPDATE emprestimos SET  id_amigo = ?, data_inicial = ?, data_devolucao = ? WHERE id_emprestimo = ?";
+        String sql = "UPDATE emprestimos SET  id_amigo = ?, data_emprestimo = ?, data_devolucao = ?, status =? WHERE id_emprestimo = ?";
         try {
             Connection conexao = ConexaoDB.getConexao();
             if (conexao != null) {
                 try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                    stmt.setInt(2, emprestimo.getIdAmigo());
-                    stmt.setDate(3, emprestimo.getDataInicial());
-                    stmt.setDate(5, emprestimo.getDataDevolucao());
-                    stmt.setInt(6, emprestimo.getIdEmprestimo());
+                    stmt.setInt(1, emprestimo.getIdAmigo());
+                    stmt.setDate(2, emprestimo.getDataInicial());
+                    stmt.setDate(3, emprestimo.getDataDevolucao());
+                    System.out.println(emprestimo.getStatus().getCodigo());
+                    stmt.setInt(4, emprestimo.getStatus().getCodigo());
+                    stmt.setInt(5, emprestimo.getIdEmprestimo());
                     stmt.executeUpdate();
                     return true;
                 }
@@ -140,20 +142,33 @@ public class EmprestimoDAO {
     }
 
     public boolean deletarEmprestimo(int idEmprestimo) {
-        String sql = "DELETE FROM emprestimos WHERE id_emprestimo = ?";
-        try {
-            Connection conexao = ConexaoDB.getConexao();
-            if (conexao != null) {
-                try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-                    stmt.setInt(1, idEmprestimo);
-                    stmt.executeUpdate();
-                    return true;
-                }
+        String sqlDeleteEmprestimo = "DELETE FROM emprestimos WHERE id_emprestimo = ?";
+        String sqlDeleteFerramentas = "DELETE FROM ferramentas_emprestadas WHERE id_emprestimo = ?";
+        boolean sucesso = false;
+
+        try (Connection conexao = ConexaoDB.getConexao(); PreparedStatement stmtDeleteEmprestimo = conexao.prepareStatement(sqlDeleteEmprestimo); PreparedStatement stmtDeleteFerramentas = conexao.prepareStatement(sqlDeleteFerramentas)) {
+
+            // Inicia a transação
+            conexao.setAutoCommit(false);
+
+            // Deleta as ferramentas associadas ao empréstimo
+            stmtDeleteFerramentas.setInt(1, idEmprestimo);
+            stmtDeleteFerramentas.executeUpdate();
+
+            // Deleta o empréstimo
+            stmtDeleteEmprestimo.setInt(1, idEmprestimo);
+            int linhasAfetadas = stmtDeleteEmprestimo.executeUpdate();
+            if (linhasAfetadas > 0) {
+                // Se pelo menos uma linha foi excluída, confirma a transação
+                conexao.commit();
+                sucesso = true;
             }
         } catch (SQLException erro) {
+            // Em caso de erro, faz rollback para desfazer qualquer alteração na transação
             throw new RuntimeException(erro);
         }
-        return false;
+
+        return sucesso;
     }
 
     public ArrayList<Emprestimo> listarEmprestimos() {
@@ -169,6 +184,24 @@ public class EmprestimoDAO {
                         emprestimo.setIdAmigo(rs.getInt("id_amigo"));
                         emprestimo.setDataInicial(rs.getDate("data_emprestimo"));
                         emprestimo.setDataDevolucao(rs.getDate("data_devolucao"));
+                        int statusInt = rs.getInt("status");
+                        StatusEmprestimo status;
+                        switch (statusInt) {
+                            case 1:
+                                status = StatusEmprestimo.ABERTO;
+                                break;
+                            case 2:
+                                status = StatusEmprestimo.FECHADO;
+                                break;
+                            case 3:
+                                status = StatusEmprestimo.EM_ATRASO;
+                                break;
+                            default:
+                                // Trate o caso de valor inválido, se necessário
+                                status = StatusEmprestimo.ABERTO; // Ou outro valor padrão
+                                break;
+                        }
+                        emprestimo.setStatus(status);
                         lista.add(emprestimo);
                     }
                 }
@@ -200,4 +233,106 @@ public class EmprestimoDAO {
         }
         return qtd;
     }
+
+    public Emprestimo carregaEmprestimo(int id) {
+        System.out.print("ENtrou para pegar os dados");
+        Emprestimo objeto = new Emprestimo(); //cria o objeto
+        objeto.setIdEmprestimo(id); //seta o id recebido por parametro para o objeto
+        try {
+            Connection conexao = ConexaoDB.getConexao();
+            if (conexao != null) {
+                try (Statement stmt = conexao.createStatement()) {
+                    //executa nossa query
+                    ResultSet resposta = stmt.executeQuery("SELECT * FROM Emprestimos WHERE id_emprestimo = " + id);
+                    resposta.next();
+                    objeto.setIdAmigo(resposta.getInt("id_amigo"));
+                    objeto.setDataInicial(resposta.getDate("data_emprestimo"));
+                    objeto.setDataDevolucao(resposta.getDate("data_devolucao"));
+                    int statusInt = resposta.getInt("status");
+                    StatusEmprestimo status;
+                    switch (statusInt) {
+                        case 1:
+                            status = StatusEmprestimo.ABERTO;
+                            break;
+                        case 2:
+                            status = StatusEmprestimo.FECHADO;
+                            break;
+                        case 3:
+                            status = StatusEmprestimo.EM_ATRASO;
+                            break;
+                        default:
+                            // Trate o caso de valor inválido, se necessário
+                            status = StatusEmprestimo.ABERTO; // Ou outro valor padrão
+                            break;
+                    }
+
+                    objeto.setStatus(status);
+
+                    // Obtém as ferramentas emprestadas para um determinado empréstimo
+                    ResultSet resultado = stmt.executeQuery("SELECT * FROM ferramentas_emprestadas WHERE id_emprestimo = " + id);
+                    ArrayList<Ferramenta> ferramentasLista = new ArrayList<>();
+                    while (resultado.next()) {
+                        int idFerramenta = resultado.getInt("id_ferramenta");
+
+                        // Use um novo Statement para a segunda consulta
+                        Statement ferramentaStmt = conexao.createStatement();
+                        ResultSet ferramentaRs = ferramentaStmt.executeQuery("SELECT * FROM ferramentas WHERE id_ferramenta = " + idFerramenta);
+
+                        if (ferramentaRs.next()) {
+                            Ferramenta ferramenta = new Ferramenta();
+                            ferramenta.setId(ferramentaRs.getInt("id_ferramenta"));
+                            ferramenta.setNome(ferramentaRs.getString("nome"));
+                            ferramenta.setMarca(ferramentaRs.getString("marca"));
+                            ferramenta.setCusto(ferramentaRs.getDouble("custo_aquisicao"));
+                            ferramenta.setStatus(ferramentaRs.getBoolean("status"));
+                            ferramentasLista.add(ferramenta);
+                        }
+                        ferramentaRs.close();
+                        ferramentaStmt.close();
+                    }
+                    resultado.close();
+                    objeto.setFerramentasSelecionadas(ferramentasLista);
+
+                }
+            }
+        } //executa nossa query
+        catch (SQLException erro) {
+        }
+        return objeto;
+    }
+
+    public ArrayList<Ferramenta> pegaFerramentasEmprestimo(int idEmprestimo) {
+        ArrayList<Ferramenta> ferramentasLista = new ArrayList<>();
+        String sqlFerramentasEmprestadas = "SELECT id_ferramenta FROM ferramentas_emprestadas WHERE id_emprestimo = ?";
+        String sqlFerramenta = "SELECT * FROM ferramentas WHERE id_ferramenta = ?";
+
+        try (Connection conexao = ConexaoDB.getConexao(); PreparedStatement stmtFerramentasEmprestadas = conexao.prepareStatement(sqlFerramentasEmprestadas); PreparedStatement stmtFerramenta = conexao.prepareStatement(sqlFerramenta)) {
+
+            stmtFerramentasEmprestadas.setInt(1, idEmprestimo);
+            try (ResultSet resultado = stmtFerramentasEmprestadas.executeQuery()) {
+                while (resultado.next()) {
+                    int idFerramenta = resultado.getInt("id_ferramenta");
+                    stmtFerramenta.setInt(1, idFerramenta);
+
+                    try (ResultSet ferramentaRs = stmtFerramenta.executeQuery()) {
+                        if (ferramentaRs.next()) {
+                            Ferramenta ferramenta = new Ferramenta();
+                            ferramenta.setId(ferramentaRs.getInt("id_ferramenta"));
+                            ferramenta.setNome(ferramentaRs.getString("nome"));
+                            ferramenta.setMarca(ferramentaRs.getString("marca"));
+                            ferramenta.setCusto(ferramentaRs.getDouble("custo_aquisicao"));
+                            ferramenta.setStatus(ferramentaRs.getBoolean("status"));
+                            ferramentasLista.add(ferramenta);
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao recuperar ferramentas do empréstimo: " + erro.getMessage(), erro);
+        }
+
+        return ferramentasLista;
+    }
+
 }

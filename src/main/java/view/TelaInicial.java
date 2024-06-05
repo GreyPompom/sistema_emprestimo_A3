@@ -190,7 +190,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VerEmprestimo objeto = new VerEmprestimo();
+        VerEmprestimos objeto = new VerEmprestimos();
         objeto.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

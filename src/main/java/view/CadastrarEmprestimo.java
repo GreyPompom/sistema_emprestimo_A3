@@ -569,11 +569,17 @@ public class CadastrarEmprestimo extends javax.swing.JFrame {
         Date hoje = cal.getTime();
 
         Date dataInicialSemHora = resetTime(dataInicial);
+        Date dataFinalSemHora = resetTime(dataDevolucao);
 
         if (dataInicialSemHora.before(hoje)) {
-            JOptionPane.showMessageDialog(this, "A data inicial não pode ser inferior à data de hoje.");
+            JOptionPane.showMessageDialog(this, "A data inicial não pode ser inferior à data de hoje.","Erro", JOptionPane.ERROR_MESSAGE);
             return;
+        }else if(dataFinalSemHora.before(dataInicialSemHora)){
+            JOptionPane.showMessageDialog(this, "A data de devolução não pode ser inferior à data inicial.","Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+            
         }
+        
         java.sql.Date sqlDataInicial = new java.sql.Date(dataInicial.getTime());
         java.sql.Date sqlDataDevolucao = new java.sql.Date(dataDevolucao.getTime());
 
@@ -625,7 +631,7 @@ public class CadastrarEmprestimo extends javax.swing.JFrame {
         this.inputNomeAmigo.setText("");
         this.inputTelAmigo.setText("");
         this.setVisible(false);
-        VerEmprestimo objeto = new VerEmprestimo();
+        VerEmprestimos objeto = new VerEmprestimos();
         objeto.carregaTabela();
     }
 

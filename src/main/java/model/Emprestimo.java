@@ -132,10 +132,13 @@ public class Emprestimo {
    
     
     public ArrayList<Ferramenta> getFerramentasSelecionadas() {
+        System.out.print("tentou pegar");
         return ferramentasSelecionadas;
     }
 
     public void setFerramentasSelecionadas(ArrayList<Ferramenta> ferramentasSelecionadas) {
+                System.out.print("definiu ferramenta");
+
         this.ferramentasSelecionadas = ferramentasSelecionadas;
     }
 
@@ -184,6 +187,35 @@ public class Emprestimo {
 
     return diasRestantes;
     }
+    public double calculaTotalEmprestimo() {
+        double totalEmprestimo = 0.0;
+        for (Ferramenta ferramenta : ferramentasSelecionadas) {
+            totalEmprestimo += ferramenta.getCusto();
+        }
+        return totalEmprestimo;
+    }
+   public Emprestimo pegaEmprestimo(int id){
+       return dao.carregaEmprestimo(id);
+   }
    
-
+   public boolean atualizaEmprestimo(Emprestimo emprestimo){
+       dao.atualizarEmprestimo(emprestimo);
+       return true;
+   }
+   public ArrayList<Ferramenta> pegaListaFerramentas(int id_emprestimo){
+       return dao.pegaFerramentasEmprestimo(id_emprestimo);
+   }
+   
+   public double calcularValorTotal() {
+        double valorTotal = 0.0;
+        ArrayList<Ferramenta> ferramentas = pegaListaFerramentas(this.idEmprestimo);
+        for (Ferramenta ferramenta : ferramentas) {
+            valorTotal += ferramenta.getCusto();
+        }
+        return valorTotal;
+    }
+   
+   public boolean deletarEmprestimo(int id){
+       return dao.deletarEmprestimo(id);
+   }
 }

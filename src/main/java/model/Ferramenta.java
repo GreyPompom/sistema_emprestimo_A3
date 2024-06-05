@@ -110,4 +110,8 @@ public class Ferramenta {
     public ArrayList pegarListaDisponiveis(){
           return dao.pegarListaDisponiveis();
     }
+    
+    public boolean devolveFerramenta(int id){
+        return dao.ferramentaDevolvida(id);
+    }
 }

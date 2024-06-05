@@ -1,26 +1,27 @@
 package view;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import model.Emprestimo;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import model.Ferramenta;
 
-public class VerEmprestimo extends javax.swing.JFrame {
+public class VerEmprestimos extends javax.swing.JFrame {
 
     Emprestimo objeto;
+    double totalEmprestimo;
 
-    public VerEmprestimo() {
+    public VerEmprestimos() {
         initComponents();
         objeto = new Emprestimo();
         carregaTabela();
     }
 
     public void carregaTabela() {
-
         DefaultTableModel modelo = (DefaultTableModel) this.TabelaEmprestimos.getModel();
         modelo.setNumRows(0);
 
@@ -28,18 +29,61 @@ public class VerEmprestimo extends javax.swing.JFrame {
         minhalista = objeto.pegarLista();
 
         for (Emprestimo a : minhalista) {
+            double valorTotal = a.calcularValorTotal();
+            String status = "x";
+            switch (a.getStatus().getCodigo()) {
+                            case 1:
+                                status = "Aberto";
+                                break;
+                            case 2:
+                                status ="Fechado";
+                                break;
+                            case 3:
+                                status ="Em Atraso";
+                                break;
+                            default:
+                                 JOptionPane.showConfirmDialog(null, "Erro ao informar o status");
+                                break;
+                        }
             modelo.addRow(new Object[]{
                 a.getIdEmprestimo(),
                 a.getIdAmigo(),
-                a.getDataInicial(), 
-                a.tempoRestante( a.getDataInicial(), a.getDataDevolucao()),
+                a.getDataInicial(),
+                a.tempoRestante(a.getDataInicial(), a.getDataDevolucao()),
                 a.getDataDevolucao(),
-                a.qtdFerramentasEmprestimo( a.getIdEmprestimo()),
-                "não calcula ainda"
+                a.qtdFerramentasEmprestimo(a.getIdEmprestimo()),
+                valorTotal,
+                status
             });
         }
+        configurarRenderizadorTabela();
     }
 
+    private void configurarRenderizadorTabela() {
+        TabelaEmprestimos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                String status = (String) table.getValueAt(row, 7); // Coluna do status
+                switch (status) {
+                    case "Aberto":
+                        c.setBackground(Color.GREEN);
+                        break;
+                    case "Fechado":
+                        c.setBackground(Color.GRAY);
+                        break;
+                    case "Em Atraso":
+                        c.setBackground(Color.RED);
+                        break;
+                    default:
+                        c.setBackground(Color.WHITE);
+                        break;
+                }
+                return c;
+            }
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -140,11 +184,11 @@ public class VerEmprestimo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Amigo", "Data_inicio", "Dias restantes", "Data_devolução", "Qtd. Ferramentas", "Valor R$"
+                "ID", "Amigo", "Data_inicio", "Dias restantes", "Data_devolução", "Qtd. Ferramentas", "Valor R$", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -152,7 +196,23 @@ public class VerEmprestimo extends javax.swing.JFrame {
             }
         });
         TabelaEmprestimos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        TabelaEmprestimos.setRowHeight(30);
+        TabelaEmprestimos.setRowSelectionAllowed(false);
+        TabelaEmprestimos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelaEmprestimosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TabelaEmprestimos);
+        if (TabelaEmprestimos.getColumnModel().getColumnCount() > 0) {
+            TabelaEmprestimos.getColumnModel().getColumn(0).setPreferredWidth(20);
+            TabelaEmprestimos.getColumnModel().getColumn(1).setPreferredWidth(30);
+            TabelaEmprestimos.getColumnModel().getColumn(5).setResizable(false);
+            TabelaEmprestimos.getColumnModel().getColumn(5).setPreferredWidth(15);
+            TabelaEmprestimos.getColumnModel().getColumn(6).setResizable(false);
+            TabelaEmprestimos.getColumnModel().getColumn(6).setPreferredWidth(20);
+            TabelaEmprestimos.getColumnModel().getColumn(7).setPreferredWidth(20);
+        }
 
         javax.swing.GroupLayout PainelExibicaoLayout = new javax.swing.GroupLayout(PainelExibicao);
         PainelExibicao.setLayout(PainelExibicaoLayout);
@@ -215,6 +275,19 @@ public class VerEmprestimo extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+    private void TabelaEmprestimosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaEmprestimosMouseClicked
+        int selectedRow = TabelaEmprestimos.getSelectedRow();
+        if (selectedRow != -1) {
+            // Captura o ID do empréstimo da linha selecionada
+            int idEmprestimo = (int) TabelaEmprestimos.getValueAt(selectedRow, 0);
+            System.out.print(idEmprestimo);
+            // Abre a tela de detalhes do empréstimo passando o ID
+            DetalhesEmprestimo detalhes = new DetalhesEmprestimo(idEmprestimo);
+            detalhes.setVisible(true);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_TabelaEmprestimosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -232,20 +305,21 @@ public class VerEmprestimo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerEmprestimos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerEmprestimo().setVisible(true);
+                new VerEmprestimos().setVisible(true);
             }
         });
     }
