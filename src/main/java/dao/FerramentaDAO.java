@@ -80,7 +80,7 @@ public class FerramentaDAO {
                     stmt.setString(2, objeto.getNome());
                     stmt.setString(3, objeto.getMarca());
                     stmt.setDouble(4, objeto.getCusto());
-                    stmt.setBoolean(5, false);
+                    stmt.setBoolean(5, true);
                     stmt.execute();
                 }
             }
@@ -176,5 +176,25 @@ public class FerramentaDAO {
         }
 
         return ListaFerramentasDisponiveis;
+    }
+    
+    public boolean ferramentaDevolvida(int id){
+        String sql = "UPDATE ferramentas SET status = ? WHERE id_ferramenta = ?";
+        try {
+            Connection conexao = ConexaoDB.getConexao();
+            if (conexao != null) {
+                try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                    stmt.setBoolean(1, true);
+                    stmt.setInt(2, id);
+                    int linhasAfetadas = stmt.executeUpdate();
+                    return linhasAfetadas > 0;
+                }
+            } else {
+                return false; 
+            }
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao atualizar ferramenta: " + erro.getMessage(), erro);
+        }
+        
     }
 }
