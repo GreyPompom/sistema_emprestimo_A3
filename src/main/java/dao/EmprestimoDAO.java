@@ -335,4 +335,67 @@ public class EmprestimoDAO {
         return ferramentasLista;
     }
 
+    public boolean deletarEmprestimoAmigo(int id_amigo) {
+        String sqlSelectEmprestimos = "SELECT id_emprestimo FROM emprestimos WHERE id_amigo = ?";
+        String sqlDeleteEmprestimos = "DELETE FROM emprestimos WHERE id_amigo = ?";
+        String sqlDeleteFerramentasEmprestadas = "DELETE FROM ferramentas_emprestadas WHERE id_emprestimo = ?";
+        String sqlUpdateFerramentas = "UPDATE ferramentas SET status = true WHERE id_ferramenta IN (SELECT id_ferramenta FROM ferramentas_emprestadas WHERE id_emprestimo = ?)";
+        boolean sucesso = false;
+        Connection conexao = ConexaoDB.getConexao();
+
+        try (
+                PreparedStatement stmtSelectEmprestimos = conexao.prepareStatement(sqlSelectEmprestimos); PreparedStatement stmtDeleteEmprestimos = conexao.prepareStatement(sqlDeleteEmprestimos); PreparedStatement stmtDeleteFerramentasEmprestadas = conexao.prepareStatement(sqlDeleteFerramentasEmprestadas); PreparedStatement stmtUpdateFerramentas = conexao.prepareStatement(sqlUpdateFerramentas)) {
+
+            // Inicia a transação
+            conexao.setAutoCommit(false);
+
+            // Busca todos os empréstimos do amigo
+            stmtSelectEmprestimos.setInt(1, id_amigo);
+            ResultSet rsEmprestimos = stmtSelectEmprestimos.executeQuery();
+            int idEmprestimo = 0;
+            // Itera sobre cada empréstimo
+            while (rsEmprestimos.next()) {
+                idEmprestimo = rsEmprestimos.getInt("id_emprestimo");
+
+                // Deleta as ferramentas_emprestadas associadas a este empréstimo
+                stmtDeleteFerramentasEmprestadas.setInt(1, idEmprestimo);
+                stmtDeleteFerramentasEmprestadas.executeUpdate();
+                // Atualiza o status das ferramentas associadas para verdadeiro
+                stmtUpdateFerramentas.setInt(1, idEmprestimo);
+                stmtUpdateFerramentas.executeUpdate();
+            }
+
+            // Deleta os empréstimos do amigo
+            stmtDeleteEmprestimos.setInt(1, id_amigo);
+            int linhasAfetadas = stmtDeleteEmprestimos.executeUpdate();
+            if (linhasAfetadas > 0) {
+                // Se pelo menos uma linha foi excluída, confirma a transação
+                conexao.commit();
+                sucesso = true;
+            } else {
+                conexao.rollback();
+            }
+        } catch (SQLException erro) {
+            // Em caso de erro, faz rollback para desfazer qualquer alteração na transação
+            try {
+                if (conexao != null) {
+                    conexao.rollback();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            throw new RuntimeException(erro);
+        } finally {
+            try {
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return sucesso;
+    }
+
 }

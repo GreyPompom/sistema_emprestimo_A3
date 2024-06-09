@@ -218,4 +218,7 @@ public class Emprestimo {
    public boolean deletarEmprestimo(int id){
        return dao.deletarEmprestimo(id);
    }
+   public boolean deletarEmprestimoAmigo(int id){
+     return  dao.deletarEmprestimoAmigo(id);
+   }
 }

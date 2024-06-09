@@ -1,4 +1,3 @@
-
 package view;
 
 import java.util.ArrayList;
@@ -7,16 +6,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import model.Ferramenta;
- 
+
 public class VerFerramenta extends javax.swing.JFrame {
- private Ferramenta objetoFerramenta;
-   
+
+    private Ferramenta objetoFerramenta;
+
     public VerFerramenta() {
         initComponents();
-        this.objetoFerramenta = new Ferramenta(); 
+        this.objetoFerramenta = new Ferramenta();
         this.carregaTabela();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -198,56 +197,52 @@ public class VerFerramenta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaFerramentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFerramentasMouseClicked
-        
+
         if (this.tabelaFerramentas.getSelectedRow() != -1) {
 
-                    String id = ""+ this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 0).toString();
-                    String nome = this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 1).toString();
-                    String preco = this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 2).toString();
-                    String marca = this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 3).toString();
-                    String status = this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 4).toString();
-                    
-                    
-                    
-                    this.inputNome.setText(nome);
-                    this.inputMarca.setText(marca);
-                    this.inputPreco.setText(preco);
-                    this.inputStatus.setText(status);
-                    this.inputID.setText(id);
-                    
-                    this.inputID.setEnabled(false);
-                    this.inputStatus.setEnabled(false);
-                }
+            String id = "" + this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 0).toString();
+            String nome = this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 1).toString();
+            String preco = this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 2).toString();
+            String marca = this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 3).toString();
+            String status = this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 4).toString();
+
+            this.inputNome.setText(nome);
+            this.inputMarca.setText(marca);
+            this.inputPreco.setText(preco);
+            this.inputStatus.setText(status);
+            this.inputID.setText(id);
+
+            this.inputID.setEnabled(false);
+            this.inputStatus.setEnabled(false);
+        }
     }//GEN-LAST:event_tabelaFerramentasMouseClicked
 
     private void FecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FecharActionPerformed
-         this.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_FecharActionPerformed
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
-      try {
+        try {
             // recebendo e validando dados da interface gráfica.
             int id = 0;
             String nome = "";
-            String marca="";
-            double preco =0.0;
-            boolean status = false;            
+            String marca = "";
+            double preco = 0.0;
+            boolean status = false;
 
             if (this.inputNome.getText().length() <= 2) {
                 throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
             } else {
                 nome = this.inputNome.getText();
             }
-            
+
             if (this.inputMarca.getText().length() <= 2) {
                 throw new Mensagem("Marca deve conter ao menos 2 caracteres.");
             } else {
@@ -265,20 +260,20 @@ public class VerFerramenta extends javax.swing.JFrame {
             } else {
                 id = Integer.parseInt(this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 0).toString());
             }
-            
-            if(this.inputStatus.getText().equals("Disponível")){
+
+            if (this.inputStatus.getText().equals("Disponível")) {
                 status = false;
-            }else{
-                status= true;
+            } else {
+                status = true;
             }
             // envia os dados para o Aluno processar
-            if (this.objetoFerramenta.updateFerramentaBD(nome,id,marca,status,preco  )) {
+            if (this.objetoFerramenta.updateFerramentaBD(nome, id, marca, status, preco)) {
                 // limpa os campos
                 this.inputNome.setText("");
-                    this.inputMarca.setText("");
-                    this.inputPreco.setText("");
-                    this.inputStatus.setText("");
-                    this.inputID.setText("");
+                this.inputMarca.setText("");
+                this.inputPreco.setText("");
+                this.inputStatus.setText("");
+                this.inputID.setText("");
                 JOptionPane.showMessageDialog(rootPane, "Ferramenta alterada!");
 
             }
@@ -301,33 +296,39 @@ public class VerFerramenta extends javax.swing.JFrame {
             } else {
                 id = Integer.parseInt(this.tabelaFerramentas.getValueAt(this.tabelaFerramentas.getSelectedRow(), 0).toString());
             }
-            
+
             // Define os textos dos botões
-            Object[] options = {"Sim", "Não"};
-            int resposta_usuario = JOptionPane.showOptionDialog(
-                    null, 
-                "Tem certeza que deseja APAGAR essa ferramenta ?", 
-                "Confirmação", 
-                JOptionPane.YES_NO_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
-                options, 
-                options[0] );          
-            
-            if (resposta_usuario == 0) {// clicou em SIM
+            if (this.objetoFerramenta.FerramentaEmEmprestimo(id)) {
+                throw new Mensagem("Não é possivel excluir a ferramenta selecionada, pois a mesma possui associação a emprestimos");
+            } else {
+                Object[] options = {"Sim", "Não"};
+                int resposta_usuario = JOptionPane.showOptionDialog(
+                        null,
+                        "Tem certeza que deseja APAGAR essa ferramenta ?",
+                        "Confirmação",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
 
-                // envia os dados para o Aluno processar
-                if (this.objetoFerramenta.deleteFerramentaBD(id)) {
+                if (resposta_usuario == 0) {// clicou em SIM
 
-                    // limpa os campos
-                    this.inputNome.setText("");
-                    this.inputMarca.setText("");
-                    this.inputPreco.setText("");
-                    this.inputStatus.setText("");
-                    this.inputID.setText("");
-                    JOptionPane.showMessageDialog(rootPane, "Ferramenta apagada!");
+                    // envia os dados para o Aluno processar
+                    if (this.objetoFerramenta.deleteFerramentaBD(id)) {
+
+                        // limpa os campos
+                        this.inputNome.setText("");
+                        this.inputMarca.setText("");
+                        this.inputPreco.setText("");
+                        this.inputStatus.setText("");
+                        this.inputID.setText("");
+                        JOptionPane.showMessageDialog(rootPane, "Ferramenta apagada!");
+                    }
                 }
+
             }
+
             System.out.println(this.objetoFerramenta.pegarLista().toString());
 
         } catch (Mensagem erro) {
@@ -339,36 +340,37 @@ public class VerFerramenta extends javax.swing.JFrame {
     }//GEN-LAST:event_deletarActionPerformed
 
     public static void main(String args[]) {
-    
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Ferramenta().setVisible(true);
             }
         });
     }
+
     @SuppressWarnings("unchecked")
-    
+
     public void carregaTabela() {
-    DefaultTableModel modelo = (DefaultTableModel) this.tabelaFerramentas.getModel();
-    modelo.setNumRows(0);
-    ArrayList<Ferramenta> minhalista = objetoFerramenta.pegarLista();
-    for (Ferramenta a : minhalista) {
-         System.out.println("a: "+a.getId());
-        String x="";
-        if (a.isStatus() == false) {
-            x = "Disponível";
-        } else {
-            x = "Indisponível";
+        DefaultTableModel modelo = (DefaultTableModel) this.tabelaFerramentas.getModel();
+        modelo.setNumRows(0);
+        ArrayList<Ferramenta> minhalista = objetoFerramenta.pegarLista();
+        for (Ferramenta a : minhalista) {
+            System.out.println("a: " + a.getId());
+            String x = "";
+            if (a.isStatus() == false) {
+                x = "Disponível";
+            } else {
+                x = "Indisponível";
+            }
+            modelo.addRow(new Object[]{
+                a.getId(),
+                a.getNome(),
+                a.getCusto(),
+                a.getMarca(),
+                x
+            });
         }
-        modelo.addRow(new Object[]{
-            a.getId(),
-            a.getNome(),
-            a.getCusto(),
-            a.getMarca(),
-            x
-        });
-    }    
-}
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Fechar;
