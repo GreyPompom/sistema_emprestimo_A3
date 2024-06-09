@@ -32,7 +32,7 @@ public class DetalhesEmprestimo extends javax.swing.JFrame {
         System.out.print(objetoEmprestimo.getIdAmigo());
         objetoAmigo = objetoAmigo.pegaAmigo(objetoEmprestimo.getIdAmigo());
 
-        inputIdAmigo.setText(String.valueOf(objetoAmigo.getId()));
+        inputIdAmigo.setText(String.valueOf(objetoAmigo.getNome()));
         inputDtInicial.setText(String.valueOf(objetoEmprestimo.getDataInicial()));
         inputDtFinal.setText(String.valueOf(objetoEmprestimo.getDataDevolucao()));
 
