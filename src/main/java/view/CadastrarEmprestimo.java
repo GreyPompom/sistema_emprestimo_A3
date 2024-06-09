@@ -30,6 +30,7 @@ public class CadastrarEmprestimo extends javax.swing.JFrame {
         carregarFerramentasDisponiveis();
         ferramentasSelecionadas = new ArrayList<>();
         calculaTotalEmprestimo();
+         setLocationRelativeTo(null);
 
     }
 
