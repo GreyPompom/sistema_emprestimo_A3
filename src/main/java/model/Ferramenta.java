@@ -114,4 +114,7 @@ public class Ferramenta {
     public boolean devolveFerramenta(int id){
         return dao.ferramentaDevolvida(id);
     }
+     public boolean FerramentaEmEmprestimo(int id){
+        return dao.possuiEmprestimo(id);
+    }
 }

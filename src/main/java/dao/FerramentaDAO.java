@@ -197,4 +197,32 @@ public class FerramentaDAO {
         }
         
     }
+    
+     public boolean possuiEmprestimo(int id){
+        int qtd = 0;
+        String sql = "SELECT COUNT(*) FROM ferramentas_emprestadas WHERE id_ferramenta = ?";
+
+        try {
+            Connection conexao = ConexaoDB.getConexao();
+            if (conexao != null) {
+                try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                    stmt.setInt(1, id);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            qtd = rs.getInt(1);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException erro) {
+            throw new RuntimeException(erro);
+        }
+        
+        if(qtd >0){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
 }

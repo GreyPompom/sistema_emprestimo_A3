@@ -1,4 +1,3 @@
-
 package view;
 
 import java.util.ArrayList;
@@ -7,20 +6,16 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import model.Amigo;
 
-
 public class VerAmigo extends javax.swing.JFrame {
-    private Amigo objetoAmigo;
-    
 
+    private Amigo objetoAmigo;
 
     public VerAmigo() {
         initComponents();
         this.objetoAmigo = new Amigo();
         this.carregaTabela();
-        
-        
-    }
 
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -282,46 +277,69 @@ public class VerAmigo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-                                                         
-        
 
-     
     private void deletarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarAmigoActionPerformed
         try {
-        // validando dados da interface gráfica.
-        int id = 0;
-        if (this.TabelaAmigos.getSelectedRow() == -1) {
-            throw new Exception("Primeiro Selecione um amigo para APAGAR");
-        } else {
-            id = Integer.parseInt(this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 0).toString());
-        }
-        Object[] options = {"Sim", "Não"};
-        int resposta_usuario = JOptionPane.showOptionDialog(
-                null, 
-                "Tem certeza que deseja APAGAR esse amigo ?", 
-                "Confirmação", 
-                JOptionPane.YES_NO_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
-                options, 
-                options[0] );  
-        if (resposta_usuario == 0) {// clicou em SIM
-            // envia os dados para o Amigo processar
-            if (this.objetoAmigo.deleteAmigoBD(id)) {
-                // limpa os campos
-                this.inputNome.setText("");
-                this.inputTelefone.setText("");
-                this.inputId.setText("");
-                JOptionPane.showMessageDialog(rootPane, "Amigo Deletado!");
+            // validando dados da interface gráfica.
+            int id = 0;
+            if (this.TabelaAmigos.getSelectedRow() == -1) {
+                throw new Exception("Primeiro Selecione um amigo para APAGAR");
+            } else {
+                id = Integer.parseInt(this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 0).toString());
             }
+            Object[] options = {"Sim", "Não"};
+            int resposta_usuario = JOptionPane.showOptionDialog(
+                    null,
+                    "Tem certeza que deseja APAGAR esse amigo ?",
+                    "Confirmação",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+            if (resposta_usuario == 0) {// clicou em SIM
+                // envia os dados para o Amigo processar
+                if (this.objetoAmigo.amigoPossuiEmprestimo(id)) {
+                    int valida_possui_emprestimo = JOptionPane.showOptionDialog(
+                            null,
+                            "Amigo possui emprestimos, os mesmo seram exluidos tbm, deseja continuar?",
+                            "Confirmação",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+                    if (valida_possui_emprestimo == 0) {
+                        if (this.objetoAmigo.deleteAmigoBD(id)) {
+                            // limpa os campos
+                            this.inputNome.setText("");
+                            this.inputTelefone.setText("");
+                            this.inputId.setText("");
+                            JOptionPane.showMessageDialog(rootPane, "Amigo e emprestimos deletados!");
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Ação cancelada!");
+                    }
+
+                } else {
+                    if (this.objetoAmigo.deleteAmigoBD(id)) {
+                        // limpa os campos
+                        this.inputNome.setText("");
+                        this.inputTelefone.setText("");
+                        this.inputId.setText("");
+                        JOptionPane.showMessageDialog(rootPane, "Amigo Deletado!");
+                    }
+                }
+
+            }
+            System.out.println(this.objetoAmigo.pegarLista().toString());
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        } finally {
+            // atualiza a tabela.
+            carregaTabela();
         }
-        System.out.println(this.objetoAmigo.pegarLista().toString());
-    } catch (Exception erro) {
-        JOptionPane.showMessageDialog(null, erro.getMessage());
-    } finally {
-        // atualiza a tabela.
-        carregaTabela();
-    }
     }//GEN-LAST:event_deletarAmigoActionPerformed
 
     private void atualizarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarAmigoActionPerformed
@@ -330,31 +348,28 @@ public class VerAmigo extends javax.swing.JFrame {
             // recebendo e validando dados da interface gráfica.
             int id = 0;
             String nome = "";
-            String telefone="";           
-            
-             if (this.TabelaAmigos.getSelectedRow() == -1) {
+            String telefone = "";
+
+            if (this.TabelaAmigos.getSelectedRow() == -1) {
                 throw new Mensagem("Primeiro Selecione um amigo para Alterar");
             } else {
                 id = Integer.parseInt(this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 0).toString());
             }
-            
+
             if (this.inputNome.getText().length() <= 2) {
                 throw new Mensagem("Nome deve conter ao menos 2 caracteres.");
             } else {
                 nome = this.inputNome.getText();
             }
-            
+
             if (this.inputTelefone.getText().length() <= 2) {
                 throw new Mensagem("Telefone deve ao menos conter ao menos 2 digitos.");
             } else {
                 telefone = this.inputTelefone.getText();
             }
 
-
-           
-            
             // envia os dados para o Aluno processar
-            if (this.objetoAmigo.updateAmigoBD(nome,id,telefone )) {
+            if (this.objetoAmigo.updateAmigoBD(nome, id, telefone)) {
                 // limpa os campos
                 this.inputNome.setText("");
                 this.inputTelefone.setText("");
@@ -377,29 +392,23 @@ public class VerAmigo extends javax.swing.JFrame {
     }//GEN-LAST:event_FecharActionPerformed
 
     private void TabelaAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaAmigosMouseClicked
-        
-                    if (this.TabelaAmigos.getSelectedRow() != -1) {
 
-                    String id = ""+ this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 0).toString();
-                    String nome = this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 1).toString();
-                    String telefone = this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 2).toString();
+        if (this.TabelaAmigos.getSelectedRow() != -1) {
 
-                    
-                    
-                    
-                    this.inputId.setText(id);
-                    this.inputNome.setText(nome);
-                    this.inputTelefone.setText(telefone);
-                    
-                    this.inputId.setEnabled(false);
-                }
+            String id = "" + this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 0).toString();
+            String nome = this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 1).toString();
+            String telefone = this.TabelaAmigos.getValueAt(this.TabelaAmigos.getSelectedRow(), 2).toString();
+
+            this.inputId.setText(id);
+            this.inputNome.setText(nome);
+            this.inputTelefone.setText(telefone);
+
+            this.inputId.setEnabled(false);
+        }
     }//GEN-LAST:event_TabelaAmigosMouseClicked
-            
-    
+
     public static void main(String args[]) {
 
-
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VerAmigo().setVisible(true);
@@ -407,8 +416,7 @@ public class VerAmigo extends javax.swing.JFrame {
         });
     }
 
-    
-   @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) this.TabelaAmigos.getModel();
@@ -421,10 +429,10 @@ public class VerAmigo extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 a.getId(),
                 a.getNome(),
-               a.getTelefone()
+                a.getTelefone()
             });
         }
-    } 
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Fechar;
     private javax.swing.JTable TabelaAmigos;
