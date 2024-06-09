@@ -4,18 +4,20 @@
  */
 package view;
 
+import model.Relatorio;
+
 /**
  *
  * @author adm
  */
 public class TelaInicial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaInicial
-     */
+ private Relatorio relatorioService;
     public TelaInicial() {
         initComponents();
         setLocationRelativeTo(null);
+        this.relatorioService = new Relatorio();
+        carregarDadosRelatorios();
     }
 
     /**
@@ -41,6 +43,16 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblTotalFerramentasEmprestadas = new javax.swing.JLabel();
+        lblTotalEmprestimosAbertos = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblTotalAmigosEmprestimosAbertos = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblTotalEmprestimosPendentes = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,14 +151,14 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(261, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jLabel1)))
-                .addContainerGap(352, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(245, 245, 245))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(294, 294, 294))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,22 +173,113 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 102, 102));
 
         jButton2.setText("Relatórios");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Relátorios");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Total ferramentas emprestadas:");
+
+        lblTotalFerramentasEmprestadas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTotalFerramentasEmprestadas.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotalFerramentasEmprestadas.setText("0");
+
+        lblTotalEmprestimosAbertos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTotalEmprestimosAbertos.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotalEmprestimosAbertos.setText("0");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Total empréstimos em aberto:");
+
+        lblTotalAmigosEmprestimosAbertos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTotalAmigosEmprestimosAbertos.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotalAmigosEmprestimosAbertos.setText("0");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Total amigos com empréstimos em aberto:");
+
+        lblTotalEmprestimosPendentes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTotalEmprestimosPendentes.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotalEmprestimosPendentes.setText("0");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Total empréstimos pendentes:");
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Clique no botão abaixo para ver mais detalhes");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(87, 87, 87)
+                            .addComponent(jButton2))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(67, 67, 67)
+                            .addComponent(jLabel3))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblTotalFerramentasEmprestadas))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblTotalEmprestimosAbertos))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblTotalAmigosEmprestimosAbertos))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblTotalEmprestimosPendentes))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblTotalFerramentasEmprestadas))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblTotalEmprestimosAbertos))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblTotalAmigosEmprestimosAbertos))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblTotalEmprestimosPendentes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -251,6 +354,17 @@ public class TelaInicial extends javax.swing.JFrame {
         objeto.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        VerRelatorios obejto = new VerRelatorios();
+        obejto.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+     private void carregarDadosRelatorios() {
+        lblTotalFerramentasEmprestadas.setText(String.valueOf(relatorioService.getTotalFerramentasEmprestadas()));
+        lblTotalEmprestimosAbertos.setText(String.valueOf(relatorioService.getTotalEmprestimosAbertos()));
+        lblTotalAmigosEmprestimosAbertos.setText(String.valueOf(relatorioService.getTotalAmigosEmprestimosAbertos()));
+        lblTotalEmprestimosPendentes.setText(String.valueOf(relatorioService.getTotalEmprestimosPendentes()));
+    }   
     /**
      * @param args the command line arguments
      */
@@ -296,10 +410,20 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblTotalAmigosEmprestimosAbertos;
+    private javax.swing.JLabel lblTotalEmprestimosAbertos;
+    private javax.swing.JLabel lblTotalEmprestimosPendentes;
+    private javax.swing.JLabel lblTotalFerramentasEmprestadas;
     // End of variables declaration//GEN-END:variables
 }
