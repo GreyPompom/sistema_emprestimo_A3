@@ -11,8 +11,9 @@ import java.util.ArrayList;
 
 public class FerramentaDAO {
 
-    public static ArrayList<Ferramenta> MinhaLista = new ArrayList<>();
-
+    public static ArrayList<Ferramenta> ListaFerramentas = new ArrayList<>();
+    public static ArrayList<Ferramenta>  ListaFerramentasDisponiveis = new ArrayList<>();
+    
     public FerramentaDAO() {
 
     }
@@ -38,7 +39,7 @@ public class FerramentaDAO {
     }
 
     public ArrayList getMinhaLista() {
-        MinhaLista.clear();
+        ListaFerramentas.clear();
         //imporatnte limpar a lista antes de dar um get pq caso tenhamos dado um 
         //insert/update novo no banco atualizamos ela certinho
         try {
@@ -56,7 +57,7 @@ public class FerramentaDAO {
                     boolean status = resposta.getBoolean("status");
 
                     Ferramenta objeto = new Ferramenta(id, nome, marca, custo, status);
-                    MinhaLista.add(objeto);
+                    ListaFerramentas.add(objeto);
                 }
                 conecaozinha.close();
             }
@@ -64,7 +65,7 @@ public class FerramentaDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return MinhaLista;
+        return ListaFerramentas;
     }
 
     //esse carinha aqui insere uma nova ferramenta no banco
@@ -79,7 +80,7 @@ public class FerramentaDAO {
                     stmt.setString(2, objeto.getNome());
                     stmt.setString(3, objeto.getMarca());
                     stmt.setDouble(4, objeto.getCusto());
-                    stmt.setBoolean(5, false);
+                    stmt.setBoolean(5, true);
                     stmt.execute();
                 }
             }
@@ -151,5 +152,77 @@ public class FerramentaDAO {
         catch (SQLException erro) {
         }
         return objeto;
+    }
+    
+    public ArrayList pegarListaDisponiveis() {
+        String sql = "SELECT id_ferramenta, nome, marca, custo_aquisicao FROM ferramentas WHERE status = true";
+
+        try (Connection conexao = ConexaoDB.getConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Ferramenta ferramenta = new Ferramenta();
+                ferramenta.setId(rs.getInt("id_ferramenta"));
+                ferramenta.setNome(rs.getString("nome"));
+                ferramenta.setMarca(rs.getString("marca"));
+                ferramenta.setCusto(rs.getDouble("custo_aquisicao"));
+                ferramenta.setStatus(true); // Já sabemos que o status é true
+
+                ListaFerramentasDisponiveis.add(ferramenta);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar ferramentas disponíveis: ", e);
+        }
+
+        return ListaFerramentasDisponiveis;
+    }
+    
+    public boolean ferramentaDevolvida(int id){
+        String sql = "UPDATE ferramentas SET status = ? WHERE id_ferramenta = ?";
+        try {
+            Connection conexao = ConexaoDB.getConexao();
+            if (conexao != null) {
+                try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                    stmt.setBoolean(1, true);
+                    stmt.setInt(2, id);
+                    int linhasAfetadas = stmt.executeUpdate();
+                    return linhasAfetadas > 0;
+                }
+            } else {
+                return false; 
+            }
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao atualizar ferramenta: " + erro.getMessage(), erro);
+        }
+        
+    }
+    
+     public boolean possuiEmprestimo(int id){
+        int qtd = 0;
+        String sql = "SELECT COUNT(*) FROM ferramentas_emprestadas WHERE id_ferramenta = ?";
+
+        try {
+            Connection conexao = ConexaoDB.getConexao();
+            if (conexao != null) {
+                try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                    stmt.setInt(1, id);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            qtd = rs.getInt(1);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException erro) {
+            throw new RuntimeException(erro);
+        }
+        
+        if(qtd >0){
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 }

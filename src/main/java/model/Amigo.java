@@ -71,8 +71,22 @@ public class Amigo {
     }
     
     public boolean deleteAmigoBD(int id) {
+     if(amigoPossuiEmprestimo(id)){
+         Emprestimo ob = new Emprestimo();
+         ob.deletarEmprestimoAmigo(id);
+     }
+     
+     
     dao.deletaAmigoBD(id);
     return true;
+    }
+    
+    public Amigo pegaAmigo(int id){
+        return dao.carregaAmigo(id);
+    }
+    
+    public boolean amigoPossuiEmprestimo(int id){
+        return dao.possuiEmprestimo(id);
     }
        
 }
