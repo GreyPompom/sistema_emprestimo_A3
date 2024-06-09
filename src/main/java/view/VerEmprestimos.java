@@ -19,6 +19,7 @@ public class VerEmprestimos extends javax.swing.JFrame {
         initComponents();
         objeto = new Emprestimo();
         carregaTabela();
+         setLocationRelativeTo(null);
     }
 
     public void carregaTabela() {
@@ -91,10 +92,10 @@ public class VerEmprestimos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
-        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         RegistrarEmprestimo = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        btRelatorios = new javax.swing.JButton();
         PainelExibicao = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaEmprestimos = new javax.swing.JTable();
@@ -114,13 +115,6 @@ public class VerEmprestimos extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Recarregar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,9 +122,7 @@ public class VerEmprestimos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(529, 529, 529)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -140,19 +132,30 @@ public class VerEmprestimos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jToggleButton1)
-                    .addComponent(jButton3))
+                    .addComponent(jToggleButton1))
                 .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
 
-        jButton2.setText("Deletar");
-
         RegistrarEmprestimo.setText("Registrar");
         RegistrarEmprestimo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegistrarEmprestimoActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Recarregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        btRelatorios.setText("Relátorios");
+        btRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRelatoriosActionPerformed(evt);
             }
         });
 
@@ -164,7 +167,8 @@ public class VerEmprestimos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(RegistrarEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -173,7 +177,9 @@ public class VerEmprestimos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(RegistrarEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -288,6 +294,10 @@ public class VerEmprestimos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_TabelaEmprestimosMouseClicked
 
+    private void btRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatoriosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btRelatoriosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,7 +338,7 @@ public class VerEmprestimos extends javax.swing.JFrame {
     private javax.swing.JPanel PainelExibicao;
     private javax.swing.JButton RegistrarEmprestimo;
     private javax.swing.JTable TabelaEmprestimos;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btRelatorios;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
