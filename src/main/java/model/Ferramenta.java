@@ -1,7 +1,7 @@
 
 package model;
 
-import DAO.FerramentaDAO;
+import dao.FerramentaDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -12,14 +12,10 @@ public class Ferramenta {
     private double custo;
     private boolean status;
     private final FerramentaDAO dao;
-    
-    
-    
-    
-    public Ferramenta() {
+      
+           
+     public Ferramenta() {
      this.dao = new FerramentaDAO(); 
-     
-    
     }
 
      public Ferramenta(int id, String nome, String Marca, double Custo) {
@@ -27,8 +23,8 @@ public class Ferramenta {
         this.nome = nome;
         this.marca = Marca;
         this.custo = Custo;
+        this.status = true;
         this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
-        this.status = false;
     }
      
     public Ferramenta(int id, String nome, String marca, double custo, boolean status) {
@@ -37,9 +33,7 @@ public class Ferramenta {
         this.marca = marca;
         this.custo = custo;
         this.status = status;
-         this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco
-         
-         
+        this.dao = new FerramentaDAO(); // inicializado uma ferramenta no banco                
     }
 
     public int getId() {
@@ -50,8 +44,7 @@ public class Ferramenta {
         this.id = id;
     }
 
-    public String getNome() {
-        
+    public String getNome() {        
         return nome;
     }
 
@@ -81,8 +74,7 @@ public class Ferramenta {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-    
+    }   
      
     //METODOS CONTROLLERS//
     // retorna o maior ID da nossa base de dados
@@ -92,25 +84,37 @@ public class Ferramenta {
         
      public ArrayList pegarLista() {
         //retorna a lista de ferramentas cadastradas no banco
-        
-         
-        return dao.getMinhaLista();
-        
+        return dao.getMinhaLista();        
     }
-     public boolean InsertFerramenta(String nome, String Marca, double Custo) throws SQLException {
-          System.out.println(Custo);
-          System.out.println("CAHAMOU");
+     public boolean insertFerramenta(String nome, String Marca, double Custo) throws SQLException {
         int idM = this.maiorID() + 1;
         System.out.println(idM);
         Ferramenta objeto = new Ferramenta(idM, nome, Marca,Custo);
-//        AlunoDAO.MinhaLista.add(objeto);
-        dao.InserirFerramentaBD(objeto);
+        dao.inserirFerramentaBD(objeto);
         return true;
-
     }
 
+    public boolean updateFerramentaBD(String nome, int id, String marca, boolean status, double custo) {
+        Ferramenta objeto = new Ferramenta( id,nome,  marca,  custo,  status);
+        dao.atualizarFerramenta(objeto);
+        return true;
+    }
+    
     public void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
-     
+    public boolean deleteFerramentaBD(int id) {
+        dao.deletaFerramentaBD(id);
+        return true;
+    }
+    public ArrayList pegarListaDisponiveis(){
+          return dao.pegarListaDisponiveis();
+    }
+    
+    public boolean devolveFerramenta(int id){
+        return dao.ferramentaDevolvida(id);
+    }
+     public boolean FerramentaEmEmprestimo(int id){
+        return dao.possuiEmprestimo(id);
+    }
 }

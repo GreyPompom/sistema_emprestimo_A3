@@ -1,5 +1,5 @@
 package model;
-import DAO.AmigoDAO;
+import dao.AmigoDAO;
 import java.util.ArrayList;
 import java.sql.SQLException;
 
@@ -58,12 +58,35 @@ public class Amigo {
         return dao.getMinhaLista();
     }
     
-    public boolean InsertAmigo(String nome, String telefone)throws SQLException{
+    public boolean insertAmigo(String nome, String telefone)throws SQLException{
         int id = this.maiorID()+1;
         Amigo objeto = new Amigo(id, nome, telefone);
-        dao.InserirAmigoBD(objeto);
+        dao.inserirAmigoBD(objeto);
         return true;
     }
+    public boolean updateAmigoBD(String nome, int id, String telefone) {
+    Amigo objeto = new Amigo( id,nome, telefone);
+    dao.atualizarAmigo(objeto);
+    return true;
+    }
     
+    public boolean deleteAmigoBD(int id) {
+     if(amigoPossuiEmprestimo(id)){
+         Emprestimo ob = new Emprestimo();
+         ob.deletarEmprestimoAmigo(id);
+     }
+     
+     
+    dao.deletaAmigoBD(id);
+    return true;
+    }
+    
+    public Amigo pegaAmigo(int id){
+        return dao.carregaAmigo(id);
+    }
+    
+    public boolean amigoPossuiEmprestimo(int id){
+        return dao.possuiEmprestimo(id);
+    }
        
 }
